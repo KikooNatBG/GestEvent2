@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row" style="text-align: center;">
+    <div class="col-sm-2">
+        <img src="~/Content/Draw/Design/Logo.png" />
+    </div>
+    <div class="col-sm-4 col-sm-push-2">
+        <h2>Parkings les plus de chez vous</h2>
+    </div>
+</div>
+
+<div class="row" style="min-height:450px;margin-top:50px">
+    <div class="col-sm-8" style="display:flex">
+        <div style="width:1000px;min-height:450px;background-color:white;margin-left: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
+            
+        </div>
+    </div>
+    <div class="col-sm-4" style="display:flex">
+        <div class="col-sm-11" style="min-height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
+            @using (Html.BeginForm(""))
+            {
+                <div class="row" style="text-align:center">
+                    <h2>Recherche parkings</h2>
+                </div><br />
+
+                <div class="form-group" style="text-align:center">
+                    <h3>Evenement</h3><br />
+                    @Html.DropDownList("Name",
+                         new SelectList(new List<Object> {
+                                new { value = "Reunion" , text = "Reunion"  },
+                                new { value = "Conference" , text = "Conference" },
+                                new { value = "Spectacle" , text = "Spectacle" } },
+                             "value",
+                             "text",
+                             1
+                         ),
+                         new { @class = "form-control", @style = "margin:auto;" })
+
+                </div><br />
+                <div class="form-group" style="text-align:center">
+                    <h3>Adresse de départ</h3><br />
+                    @Html.TextBox("position", null, new { @class = "form-control", @style = "margin:auto;" })
+                </div><br />
+
+                <div class="row" style="text-align:center">
+                    <input type="submit" class="btn btn-default" style="border-radius:6px;width:140px;height:35px;text-align:center" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
