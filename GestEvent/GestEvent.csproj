@@ -209,6 +209,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModel\ConviveViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Admin.css" />
@@ -439,6 +440,8 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Convive\Index.cshtml" />
+    <Content Include="Views\Convive\Parking.cshtml" />
+    <Content Include="Views\Convive\Research.cshtml" />
     <Content Include="Views\Admin\AjouterEvenement.cshtml" />
     <Content Include="Views\Admin\HomeAdmin.cshtml" />
     <Content Include="Views\Admin\IndexEvenement.cshtml" />
