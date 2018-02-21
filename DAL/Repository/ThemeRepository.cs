@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DAL.Repository
 {
-    class ThemeRepository : GenericRepository<Theme>
+    public class ThemeRepository : GenericRepository<Theme>
     {
         public ThemeRepository(Context context) : base(context)
         {

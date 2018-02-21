@@ -1,17 +1,42 @@
 ﻿using BO;
-using System;
+using DAL.Repository;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    class ThemeService: GenericService<Theme>
+    class ThemeService
     {
-        public ThemeService()
+        private readonly ThemeRepository themeRepository;
+
+
+        public ThemeService(ThemeRepository themeRepository)
         {
-           // genericRepo = ThemeRepository();
+            this.themeRepository = themeRepository;
+        }
+
+        public List<Theme> findAll()
+        {
+            return themeRepository.findAll();
+        }
+
+        public Theme get(int? id)
+        {
+            return themeRepository.get(id);
+        }
+
+        public void create(Theme obj)
+        {
+            themeRepository.create(obj);
+        }
+
+        public virtual void update(Theme obj)
+        {
+            themeRepository.update(obj);
+        }
+
+        public virtual void delete(Theme obj)
+        {
+            themeRepository.delete(obj);
         }
     }
 }
