@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BLL.Services
 {
-    class ThemeService
+    public class ThemeService
     {
         private readonly ThemeRepository themeRepository;
 
@@ -38,5 +38,6 @@ namespace BLL.Services
         {
             themeRepository.delete(obj);
         }
+
     }
 }
