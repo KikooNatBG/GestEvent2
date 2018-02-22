@@ -15,5 +15,7 @@ namespace GestEvent.Models
         public int idThemeSelected { get; set; }
 
         public List<Theme> listTheme { get; set; }
+
+
     }
 }

@@ -10,6 +10,8 @@ namespace GestEvent.Controllers
 {
     public class AdminController : Controller
     {
+     
+
         // GET: Admin
         public ActionResult Index()
         {
@@ -54,6 +56,9 @@ namespace GestEvent.Controllers
                 maListe.Add(monTheme);
             }
             vm.listTheme = maListe;
+           // Event eventTest = new Event();
+          //  eventTest.Description = "description";
+         //   vm.monEvent = eventTest;
             return View(vm);
         }
 
