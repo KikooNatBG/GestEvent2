@@ -14,6 +14,8 @@ namespace BO
 
         [JsonProperty(PropertyName = "fields")]
         public ParkingInfo ParkingInfo { get; set; }
+
+        public double Distance { get; set; }
     }
 
     public class ParkingInfo
