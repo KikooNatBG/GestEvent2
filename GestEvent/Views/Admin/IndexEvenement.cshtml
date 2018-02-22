@@ -1,0 +1,61 @@
+﻿@model GestEvent.Models.AdminViewModels
+@{
+  
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewBag.Title = "IndexEvenement";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header AdminHeader" >Liste des evenements</h1>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="AdminContent" >
+            <table class="table AdminTable  table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th> Thème </th>
+                        <th> Lieu</th>
+                        <th> Date et Heure</th>
+                        <th> Descriptif</th>
+                        <th style="width: 8%;"> Durée (h) </th>
+                        <th style="text-align: center;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (BO.Event e in Model.maListe)
+              {
+                        <tr>
+                            <td>
+                                <a data-toggle="tooltip" data-title="Aller au Thème" href="@Url.Action("Home","Admin" )">@e.Theme.Name</a>
+                            </td>
+                            <td>@e.Address</td>
+                            <td>@e.Date</td>
+                            <td>@e.Description</td>
+                            <td>@e.Duration</td>
+                            <td style="width: 8%">
+                                <a data-toggle="tooltip" data-title="Modification" class="btn btn-success" href="@Url.Action("Home","Admin" )"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="tooltip" data-title="Suppression" class="btn btn-danger Suppr"><i class="fa fa-trash-o fa-lg"></i> </a>
+                            </td>
+                        </tr>
+              }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('.Suppr').on('click',
+        function ()
+        {
+                if (confirm("Voulez vous vraiment supprimer cet evenement ? "))
+                    window.location.href = "/Admin/Home";
+                else
+                    return false;   
+        }
+        )
+</script>

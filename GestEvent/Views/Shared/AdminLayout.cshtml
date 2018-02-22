@@ -7,10 +7,20 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>GESTEVENT</title>
-        <link href="../SBAdmin2/sbadmin2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../SBAdmin2/sbadmin2//vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
-        <link href="../SBAdmin2/sbadmin2//dist/css/sb-admin-2.css" rel="stylesheet">
-        <link href="../SBAdmin2/sbadmin2//vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+        <link href="../Content/SBAdmin2/sbadmin2/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../Content/SBAdmin2/sbadmin2//vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+        <link href="../Content/SBAdmin2/sbadmin2//dist/css/sb-admin-2.css" rel="stylesheet">
+        <link href="../Content/SBAdmin2/sbadmin2//vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="~/Content/SBAdmin2/sbadmin2/vendor/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/Admin.css" rel="stylesheet"/>
+
+        <script src="~/JQuery/jquery-3.3.1.js"></script>
+        <script src="~/Content/SBAdmin2/sbadmin2/js/sb-admin-2.js"></script>
+        <script src="~/Content/SBAdmin2/sbadmin2/vendor/bootstrap/js/bootstrap.min.js"></script>
+        <script src="~/Content/SBAdmin2/sbadmin2/vendor/datatables/datatable.min.js"></script>
+        <script src="~/Content/SBAdmin2/sbadmin2/vendor/datatables/js/dataTables.bootstrap.js"></script>
+     
     </head>
     <body>
         <div id="wrapper">
@@ -24,36 +34,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                    <a class="navbar-brand" href="index.html">GESTEVENT</a>
                 </div>
                 <!-- /.navbar-header -->
-
-                <ul class="nav navbar-top-links navbar-right">
-
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
-                            <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li>
-                                <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
-                            </li>
-                        </ul>
-                        <!-- /.dropdown-user -->
-                    </li>
-                    <!-- /.dropdown -->
-                </ul>
-                <!-- /.navbar-top-links -->
-
+                @RenderPage("AdminNavbarTop.cshtml")
                 @RenderPage("AdminSidebar.cshtml")
-                <!-- /.navbar-static-side -->
             </nav>
 
             <!-- Page Content -->
@@ -62,5 +47,14 @@
             </div>
 
         </div>
+        <script>
+            $(document).ready(
+                function ()
+                {
+                    $('[data-toggle="tooltip"]').tooltip();
+                    $('.dataTable').DataTable({ paging: false, info: false, ordering: false,"oLanguage": {"sSearch": "Recherche "}});
+                }
+                )
+        </script>
     </body>
 </html>

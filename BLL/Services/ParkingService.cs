@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    class ParkingService
+    public class ParkingService
     {
+        static String parkUrl = "data.citedia.com/r1/parks/";
+
         public ParkingService()
         {
 

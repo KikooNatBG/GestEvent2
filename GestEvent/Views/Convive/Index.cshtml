@@ -1,54 +1,65 @@
-﻿
+﻿@model GestEvent.ViewModel.ConviveViewModel
 @{
     ViewBag.Title = "Index";
 }
 
-<div class="row" style="text-align: center;">
+<div class="row" style="text-align: center;padding-top: 30px;">
     <div class="col-sm-2">
         <img src="~/Content/Draw/Design/Logo.png" />
     </div>
     <div class="col-sm-4 col-sm-push-2">
-        <h2>Parkings les plus de chez vous</h2>
+        <h2 style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Parkings les plus proche de chez vous</h2>
     </div>
 </div>
 
 <div class="row" style="min-height:450px;margin-top:50px">
     <div class="col-sm-8" style="display:flex">
-        <div style="width:1000px;min-height:450px;background-color:white;margin-left: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
-            
+        <div style="width:1000px;height:450px;background-color:white;margin-left: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px;padding: 15px;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d42629.126377540604!2d-1.678067205160248!3d48.10405474665268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sparking+rennes!5e0!3m2!1sfr!2sfr!4v1519135034052"
+                    style="width:100%; height:100%;border:0" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
     <div class="col-sm-4" style="display:flex">
-        <div class="col-sm-11" style="min-height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
-            @using (Html.BeginForm(""))
+        <div class="col-sm-11" style="height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
+            @if (Model.LstParkings.Count != 0)
             {
-                <div class="row" style="text-align:center">
-                    <h2>Recherche parkings</h2>
-                </div><br />
-
-                <div class="form-group" style="text-align:center">
-                    <h3>Evenement</h3><br />
-                    @Html.DropDownList("Name",
-                         new SelectList(new List<Object> {
-                                new { value = "Reunion" , text = "Reunion"  },
-                                new { value = "Conference" , text = "Conference" },
-                                new { value = "Spectacle" , text = "Spectacle" } },
-                             "value",
-                             "text",
-                             1
-                         ),
-                         new { @class = "form-control", @style = "margin:auto;" })
-
-                </div><br />
-                <div class="form-group" style="text-align:center">
-                    <h3>Adresse de départ</h3><br />
-                    @Html.TextBox("position", null, new { @class = "form-control", @style = "margin:auto;" })
-                </div><br />
-
-                <div class="row" style="text-align:center">
-                    <input type="submit" class="btn btn-default" style="border-radius:6px;width:140px;height:35px;text-align:center" />
+                <div class="row col-sm-12" style="height:45px;margin: 0;">
+                    <a href="@Url.Action("DisplayRubric", "Convive", new { rubric = "Reshearch.cshtml" })" class="col-sm-6" style="border:1px solid #cccccc; border-radius:5px; height:100%; text-align:center; display:flex;text-decoration: none;color: black;">
+                        <p style="margin:auto">Recherche</p>
+                    </a>
+                    <a href="@Url.Action("DisplayRubric", "Convive", new { rubric = "ParkingA" })" class="col-sm-2" style="border:1px solid #cccccc; border-radius:5px; height:100%; text-align:center; display:flex;text-decoration: none;color: black;">
+                        <p style="margin:auto">A</p>
+                    </a>
+                    <a href="@Url.Action("DisplayRubric", "Convive", new { rubric = "ParkingB" })" class="col-sm-2" style="border:1px solid #cccccc; border-radius:5px; height:100%; text-align:center; display:flex;text-decoration: none;color: black;">
+                        <p style="margin:auto">B</p>
+                    </a>
+                    <div onclick="DisplayRubric('@Url.Action("DisplayRubric", "Convive")', 'ParkingC')" class="col-sm-2" style="border:1px solid #cccccc; border-radius:5px; height:100%; text-align:center; display:flex;">
+                        <p style="margin:auto">C</p>
+                    </div>
                 </div>
             }
+            @Html.Partial(Model.ViewRubricUrl, Model)
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function DisplayRubric(urlAction, rubric) {
+        $.ajax({
+            url: urlAction,
+            type: 'post',
+            datatype: 'json',
+            data: $("#editDateTableForm").serialize() + "&rubric=" + rubric,
+            success: function (result) {
+                $(".popup").modal("show");
+                $('.popup').css("display", "flex");
+                $('.modal-backdrop').css("display", "block");
+                $('.modal-backdrop').css("opacity", "0.2");
+                $('.modal-content').load("/EditionDate/DisplayListAfterDelete");
+            },
+            error: function (xhr, textstatus, errorthrown) {
+                console.log(textstatus);
+            }
+        })
+    }
+</script>
