@@ -66,6 +66,9 @@ namespace GestEvent.Controllers
                 maListe.Add(monTheme);
             }
             vm.listTheme = maListe;
+           // Event eventTest = new Event();
+          //  eventTest.Description = "description";
+         //   vm.monEvent = eventTest;
             return View(vm);
         }
 
