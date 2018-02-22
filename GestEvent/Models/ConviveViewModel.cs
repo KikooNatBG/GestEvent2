@@ -1,18 +1,17 @@
 ﻿using BO;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
-namespace GestEvent.ViewModel
+namespace GestEvent.Models
 {
     public class ConviveViewModel
     {
         public List<Event> LstEvents { get; set; }
 
+        public Event Event { get; set; }
+
         public List<Parking> LstParkings { get; set; }
 
-        public Event Event { get; set; }
+        public Parking Parking { get; set; }
 
         public string ViewRubricUrl { get; set; }
 
@@ -21,8 +20,9 @@ namespace GestEvent.ViewModel
         public ConviveViewModel()
         {
             LstParkings = new List<Parking>();
-            LstEvents = new List<Event>();
             Event = new Event();
+            LstEvents = new List<Event>();
+            Parking = new Parking();
         }
     }
 }

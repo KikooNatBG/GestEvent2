@@ -1,10 +1,14 @@
-﻿@model GestEvent.ViewModel.ConviveViewModel
+﻿@model GestEvent.Models.ConviveViewModel
 
 @using (Html.BeginForm("ResearchParking", "Convive"))
 {
-    <div class="row" style="text-align:center">
-        <h2>Recherche parkings</h2>
-    </div><br />
+
+    if (Model.LstParkings.Count() == 0)
+    {
+        <div class="row" style="text-align:center">
+            <h2>Recherche parkings</h2>
+        </div>
+    }<br />
 
     <div class="form-group" style="text-align:center">
         <h3>Evenement</h3><br />
