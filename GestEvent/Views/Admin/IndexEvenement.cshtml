@@ -30,15 +30,22 @@
               {
                         <tr>
                             <td>
-                                <a data-toggle="tooltip" data-title="Aller au Thème" href="@Url.Action("Home","Admin" )">@e.Theme.Name</a>
+                                @if (e.Theme != null)
+                                {
+                                    <a data-toggle="tooltip" data-title="Aller au Thème" href="@Url.Action("Home", "Admin")">@e.Theme.Name</a>
+                                }
+                                else
+                                {
+                                    <label>Pas de thème</label>
+                                }
                             </td>
                             <td>@e.Address</td>
                             <td>@e.Date</td>
                             <td>@e.Description</td>
                             <td>@e.Duration</td>
                             <td style="width: 8%">
-                                <a data-toggle="tooltip" data-title="Modification" class="btn btn-success" href="@Url.Action("Home","Admin" )"><i class="fa fa-pencil"></i></a>
-                                <a data-toggle="tooltip" data-title="Suppression" class="btn btn-danger Suppr"><i class="fa fa-trash-o fa-lg"></i> </a>
+                                <a data-toggle="tooltip" data-title="Modification" class="btn btn-success" href="@Url.Action("AjouterEvenement", "Admin", new { pID=@e.Id } )"><i class="fa fa-pencil"></i></a>
+                                <a data-toggle="tooltip" data-title="Suppression" class="btn btn-danger Suppr" onclick="ClickSuppr(@e.Id)" ><i class="fa fa-trash-o fa-lg"></i> </a>
                             </td>
                         </tr>
               }
@@ -49,13 +56,14 @@
 </div>
 
 <script type="text/javascript">
-    $('.Suppr').on('click',
-        function ()
+    
+        function ClickSuppr (id)
         {
                 if (confirm("Voulez vous vraiment supprimer cet evenement ? "))
-                    window.location.href = "/Admin/Home";
+                    window.location.href = "/Admin/SupprimerEvent?pID="+id;
+                    //return true;
                 else
                     return false;   
         }
-        )
+        
 </script>
