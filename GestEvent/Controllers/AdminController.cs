@@ -13,13 +13,16 @@ namespace GestEvent.Controllers
 {
     public class AdminController : Controller
     {
+        // NATHAN LA GROSSE PUTE
         private Context context;
         private EventService eventService;
+        private ThemeService themeService;
 
-        public AdminController(Context context)
+        public AdminController()
         {
-            this.context = context;
+            this.context = new Context();
             eventService = new EventService(new EventRepository(context));
+            themeService = new ThemeService(new ThemeRepository(context));
         }
 
         // GET: Admin
@@ -31,52 +34,39 @@ namespace GestEvent.Controllers
         public ActionResult IndexEvenement()
         {
             AdminViewModels vm = new AdminViewModels();
-            //Get all des evenements
-            List <Event> maListe = new List<Event>();
-
-            for (int i = 0; i<25; i++)
-            {
-                Event monEvent = new Event();
-                monEvent.Address = "adresse" + i.ToString();
-                monEvent.Date = DateTime.Now;
-                monEvent.Description = "Une Description";
-                monEvent.Duration = 1+i;
-                Theme monTheme = new Theme();
-                monTheme.Name = "NOM " + i.ToString();
-                monEvent.Theme = monTheme;
-                maListe.Add(monEvent);
-            }
-
+            List<Event> maListe = eventService.findAll();
             vm.maListe = maListe;
             return View(vm);
         }
 
         [HttpGet]
-        public ActionResult AjouterEvenement()
+        public ActionResult AjouterEvenement(int pID=0)
         {
-            // get all de thèmes
-            List<Theme> maListe = new List<Theme>();
             AdminViewModels vm = new AdminViewModels();
-
-            for (int i=0; i<5; i++)
-            {
-                Theme monTheme = new Theme();
-                monTheme.Id = i;
-                monTheme.Name = "Nom " + i.ToString();
-                maListe.Add(monTheme);
-            }
+            if (pID!=0) { vm.monEvent = eventService.get(pID); }
+            List<Theme> maListe = themeService.findAll();  
             vm.listTheme = maListe;
-           // Event eventTest = new Event();
-          //  eventTest.Description = "description";
-         //   vm.monEvent = eventTest;
             return View(vm);
         }
 
-        public ActionResult AjoutEvent(AdminViewModels vm)
+        public ActionResult AjoutEvent(AdminViewModels pVm)
         {
-            Event monEvent = vm.monEvent;
+            if(pVm.idThemeSelected != 0) { pVm.monEvent.Theme = themeService.get(pVm.idThemeSelected); }
+            Event monEvent = pVm.monEvent;
+            if (ModelState.IsValid){
+                if (pVm.monEvent.Id != 0) { eventService.update(pVm.monEvent); }
+                else { eventService.create(pVm.monEvent); } 
+            }else{
+                return RedirectToAction("AjouterEvenement", new { pID = pVm.monEvent.Id });
+            } 
             return RedirectToAction("IndexEvenement");
-           // return View(vm);
+        }
+
+        public ActionResult SupprimerEvent(int pID = 0)
+        {
+            if (pID == 0) { return RedirectToAction("IndexEvenement"); }
+            else {  eventService.delete(eventService.get(pID)); }
+            return RedirectToAction("IndexEvenement");
         }
     }
 }
