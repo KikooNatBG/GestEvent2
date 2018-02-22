@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Organizer : Person
+    public class Role
     {
+        public const string GUEST = "Guest";
+        public const string ADMINISTRATEUR = "Administrateur";
     }
 }
