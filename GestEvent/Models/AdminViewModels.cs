@@ -8,13 +8,13 @@ namespace GestEvent.Models
 {
     public class AdminViewModels
     {
-        public List<Event> maListe { get; set; }
+        public List<Event> MaListe { get; set; }
 
-        public Event monEvent { get; set; }
+        public Event MonEvent { get; set; }
 
-        public int idThemeSelected { get; set; }
+        public int IdThemeSelected { get; set; }
 
-        public List<Theme> listTheme { get; set; }
+        public List<Theme> ListTheme { get; set; }
 
 
     }

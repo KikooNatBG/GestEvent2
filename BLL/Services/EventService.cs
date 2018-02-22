@@ -7,36 +7,36 @@ namespace BLL.Services
 {
     public class EventService
     {
-        private readonly EventRepository eventRepository;
+        private readonly EventRepository _eventRepository;
 
         public EventService(EventRepository eventRepository)
         {
-            this.eventRepository = eventRepository;
+            this._eventRepository = eventRepository;
         }
 
-        public List<Event> findAll()
+        public List<Event> FindAll()
         {
-            return eventRepository.findAll();
+            return _eventRepository.FindAll();
         }
 
-        public Event get(int? id)
+        public Event Get(int? id)
         {
-            return eventRepository.get(id);
+            return _eventRepository.Get(id);
         }
 
-        public void create(Event obj)
+        public void Create(Event obj)
         {
-            eventRepository.create(obj);
+            _eventRepository.Create(obj);
         }
 
-        public virtual void update(Event obj)
+        public virtual void Update(Event obj)
         {
-            eventRepository.update(obj);
+            _eventRepository.Update(obj);
         }
 
-        public virtual void delete(Event obj)
+        public virtual void Delete(Event obj)
         {
-            eventRepository.delete(obj);
+            _eventRepository.Delete(obj);
         }
     }
 }

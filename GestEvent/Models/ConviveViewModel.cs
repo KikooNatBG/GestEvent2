@@ -15,7 +15,7 @@ namespace GestEvent.Models
 
         public string ViewRubricUrl { get; set; }
 
-        public string rubric { get; set; }
+        public string Rubric { get; set; }
 
         public ConviveViewModel()
         {
