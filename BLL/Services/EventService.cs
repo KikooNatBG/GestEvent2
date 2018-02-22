@@ -1,10 +1,11 @@
 ﻿using BO;
 using DAL.Repository;
 using System.Collections.Generic;
+using System;
 
 namespace BLL.Services
 {
-    class EventService
+    public class EventService
     {
         private readonly EventRepository eventRepository;
 

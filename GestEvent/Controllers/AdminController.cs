@@ -5,11 +5,23 @@ using System.Web;
 using System.Web.Mvc;
 using BO;
 using GestEvent.Models;
+using DAL;
+using BLL.Services;
+using DAL.Repository;
 
 namespace GestEvent.Controllers
 {
     public class AdminController : Controller
     {
+        private Context context;
+        private EventService eventService;
+
+        public AdminController(Context context)
+        {
+            this.context = context;
+            eventService = new EventService(new EventRepository(context));
+        }
+
         // GET: Admin
         public ActionResult Index()
         {

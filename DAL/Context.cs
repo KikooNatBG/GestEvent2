@@ -13,5 +13,11 @@ namespace DAL
         public DbSet<Event> Events { get; set; }
 
         public DbSet<Theme> Themes { get; set; }
+
+
+        public static Context Create()
+        {
+            return new Context();
+        }
     }
 }
