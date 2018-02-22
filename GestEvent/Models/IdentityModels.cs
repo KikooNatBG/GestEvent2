@@ -21,7 +21,7 @@ namespace GestEvent.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("Context", throwIfV1Schema: false)
         {
         }
 

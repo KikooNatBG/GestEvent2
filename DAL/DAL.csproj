@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201802210833447_four.Designer.cs">
       <DependentUpon>201802210833447_four.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802221116250_five.cs" />
+    <Compile Include="Migrations\201802221116250_five.Designer.cs">
+      <DependentUpon>201802221116250_five.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EventRepository.cs" />
@@ -94,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802210833447_four.resx">
       <DependentUpon>201802210833447_four.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802221116250_five.resx">
+      <DependentUpon>201802221116250_five.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

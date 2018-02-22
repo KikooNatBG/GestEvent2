@@ -14,6 +14,10 @@ namespace DAL
 
         public DbSet<Theme> Themes { get; set; }
 
+        public DbSet<Organizer> Organizers { get; set; }
+
+        public DbSet<Guest> Guests { get; set; }
+
 
         public static Context Create()
         {
