@@ -10,14 +10,13 @@ namespace BO
     {
         public int Id { get; set; }
         
-        
         public String Address { get; set; }
 
         public DateTime Date { get; set; }
 
-        public Double Duration { get; set; }
+        public double Duration { get; set; }
 
-        public String Description { get; set; }
+        public string Description { get; set; }
 
         public Theme Theme { get; set; }
 

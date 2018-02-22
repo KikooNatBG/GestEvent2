@@ -10,8 +10,8 @@ namespace BO
     {
         public int Id { get; set; }
 
-        public String Login { get; set; }
+        public string Login { get; set; }
 
-        public String Password { get; set; }
+        public string Password { get; set; }
     }
 }
