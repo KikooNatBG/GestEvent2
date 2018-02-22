@@ -19,7 +19,7 @@ namespace GestEvent
         {
             // Configurer le contexte de base de données, le gestionnaire des utilisateurs et le gestionnaire des connexions pour utiliser une instance unique par demande
             app.CreatePerOwinContext(ApplicationDbContext.Create);
-            app.CreatePerOwinContext(Context.Create);
+            app.CreatePerOwinContext<Context>(Context.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
