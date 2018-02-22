@@ -1,4 +1,4 @@
-﻿@model GestEvent.ViewModel.ConviveViewModel
+﻿@model GestEvent.Models.ConviveViewModel
 @{
     ViewBag.Title = "Index";
 }
@@ -21,41 +21,41 @@
     </div>
     <div class="col-sm-4" style="display:flex">
         <div class="col-sm-11" style="height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
-            @if (Model.LstParkings.Count != 0)
+            @if (Model.LstParkings.Count != 0 || Model.Parking.Id != 0)
             {
-                <div class="row col-sm-12" style="height:45px;margin: 0;">
-                    <a href="@Url.Action("DisplayRubric", "Convive", new { rubric = "Reshearch.cshtml" })" class="col-sm-6" style="border:1px solid #cccccc; border-radius:5px; height:100%; text-align:center; display:flex;text-decoration: none;color: black;">
+                <div class="row col-sm-12 btn-group" style="height:45px;margin: 0;">
+                    <a href="@Url.Action("Index", new { rubric = "Research" })" class="col-sm-6 btn btn-default" style="height:100%;display:flex">
                         <p style="margin:auto">Recherche</p>
                     </a>
-                    <a href="@Url.Action("DisplayRubric", "Convive", new { rubric = "ParkingA" })" class="col-sm-2" style="border:1px solid #cccccc; border-radius:5px; height:100%; text-align:center; display:flex;text-decoration: none;color: black;">
+                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingA')" class="col-sm-2 btn btn-default" style="height:100%;display:flex">
                         <p style="margin:auto">A</p>
                     </a>
-                    <a href="@Url.Action("DisplayRubric", "Convive", new { rubric = "ParkingB" })" class="col-sm-2" style="border:1px solid #cccccc; border-radius:5px; height:100%; text-align:center; display:flex;text-decoration: none;color: black;">
+                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingB')" class="col-sm-2 btn btn-default" style="height:100%;display:flex">
                         <p style="margin:auto">B</p>
                     </a>
-                    <div onclick="DisplayRubric('@Url.Action("DisplayRubric", "Convive")', 'ParkingC')" class="col-sm-2" style="border:1px solid #cccccc; border-radius:5px; height:100%; text-align:center; display:flex;">
+                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingC')" class="col-sm-2 btn btn-default" style="height:100%;display:flex">
                         <p style="margin:auto">C</p>
-                    </div>
+                    </a>
                 </div>
             }
+
             @Html.Partial(Model.ViewRubricUrl, Model)
         </div>
     </div>
 </div>
-
+    
 <script type="text/javascript">
-    function DisplayRubric(urlAction, rubric) {
+    function DisplayRubric(urlAction, pRubric) {
         $.ajax({
             url: urlAction,
-            type: 'post',
-            datatype: 'json',
-            data: $("#editDateTableForm").serialize() + "&rubric=" + rubric,
+            contentType: "application/json",
+            dataType: 'JSON',
+            data: { rubric: pRubric },
             success: function (result) {
-                $(".popup").modal("show");
-                $('.popup').css("display", "flex");
-                $('.modal-backdrop').css("display", "block");
-                $('.modal-backdrop').css("opacity", "0.2");
-                $('.modal-content').load("/EditionDate/DisplayListAfterDelete");
+                console.log(result.Name);
+                $("#parkingName").html(result.Name);
+                $("#parkingTotalPlaces").html("Nb place Maximun : " + result.TotalPlaces);
+                $("#parkingFreePlaces").html("Nb place libre : " + result.FreePlaces);
             },
             error: function (xhr, textstatus, errorthrown) {
                 console.log(textstatus);
