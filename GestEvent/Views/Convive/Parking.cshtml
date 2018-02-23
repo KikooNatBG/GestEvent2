@@ -3,11 +3,11 @@
     ViewBag.Title = "Parking";
 }
 
-<h3 id="parkingName" style="text-align:center;margin-top:40px">@Model.Parking.Name</h3><br /><br />
+<h3 id="parkingName" style="text-align:center;margin-top:40px">@Model.Parking.ParkingInfo.Name</h3><br /><br />
 
 
-<p id="parkingTotalPlaces" style="text-align:center">Nb place Maximun : @Model.Parking.TotalPlaces</p>
-<p id="parkingFreePlaces" style="text-align:center">Nb place libre : @Model.Parking.FreePlaces</p>
+<p id="parkingTotalPlaces" style="text-align:center">Nb place Maximun : @Model.Parking.ParkingInfo.MaxPlaces</p>
+<p id="parkingFreePlaces" style="text-align:center">Nb place libre : @Model.Parking.ParkingInfo.FreePlaces</p>
 <p style="text-align:center">Distance : 20</p><br /><br />
 
 <div style="text-align:center;">

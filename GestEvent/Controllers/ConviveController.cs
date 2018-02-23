@@ -1,4 +1,7 @@
-﻿using BO;
+﻿using BLL.Services;
+using BO;
+using DAL;
+using DAL.Repository;
 using GestEvent.Models;
 using System;
 using System.Collections.Generic;
@@ -13,28 +16,25 @@ namespace GestEvent.Controllers
         static List<Parking> _lstParking = new List<Parking>();
         static List<Event> _lstEvent = new List<Event>();
 
+        private Context _context;
+        private EventService _eventService;
+        private ParkingService _parkingService;
+
+        public ConviveController()
+        {
+            _context = new Context();
+            _eventService = new EventService(new EventRepository(_context));
+            _parkingService = new ParkingService();
+        }
+
         // GET: Convive
         public ActionResult Index()
         {
             List<Event> lstEvent = new List<Event>();
 
-            Event evenement = new Event();
+            lstEvent = _eventService.FindAll();
 
-            evenement.Id = 1;
-            evenement.Description = "Reunion distric";
-            evenement.Date = new DateTime(2018, 05, 02);
-            evenement.Duration = 2;
-
-            Event evenement2 = new Event();
-
-            evenement2.Id = 2;
-            evenement2.Description = "Conference babouin";
-            evenement2.Date = new DateTime(2018, 05, 06);
-            evenement2.Duration = 3;
-
-            _lstEvent = new List<Event>();
-            _lstEvent.Add(evenement);
-            _lstEvent.Add(evenement2);
+            _lstEvent = lstEvent;
 
             ConviveViewModel conviveVM = new ConviveViewModel();
 
@@ -49,45 +49,25 @@ namespace GestEvent.Controllers
         {
             List<Parking> lstParking = new List<Parking>();
 
-            Parking parking = new Parking();
+            Event evenement = _eventService.GetGeolocalisation(conviveViewModel.Event.Address);
 
-            /*  parking.Id = 1;
-              parking.Name = "Gare Sud";
-              parking.TotalPlaces = 200;
-              parking.FreePlaces = 100;
+            lstParking = _parkingService.GetNearerParkings(evenement.Lagitude, evenement.Longitude);
 
-              lstParking.Add(parking);
+            _lstParking = lstParking;
 
-              Parking parking2 = new Parking();
-
-              parking2.Id = 2;
-              parking2.Name = "Colombier";
-              parking2.TotalPlaces = 300;
-              parking2.FreePlaces = 200;
-
-              lstParking.Add(parking2);
-
-              Parking parking3 = new Parking();
-
-              parking3.Id = 3;
-              parking3.Name = "Places des lices";
-              parking3.TotalPlaces = 2500;
-              parking3.FreePlaces = 2000;
-
-              lstParking.Add(parking3);
-
-              _lstParking = lstParking;
-                */
             ConviveViewModel conviveVM = new ConviveViewModel();
 
-            conviveVM.Parking = _lstParking[0];
+            if (_lstParking.Count != 0)
+            {
+                conviveVM.Parking = _lstParking[0];
+            }
 
             conviveVM.ViewRubricUrl = "~/Views/Convive/Parking.cshtml";
           
             return View("~/Views/Convive/Index.cshtml", conviveVM);
             
         }
-        
+
         public ActionResult DisplayRubric(string rubric)
         {
             ConviveViewModel conviveViewModel = new ConviveViewModel();
