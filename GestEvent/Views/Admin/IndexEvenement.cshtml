@@ -43,7 +43,7 @@
                             <td>@e.Date</td>
                             <td>@e.Description</td>
                             <td>@e.Duration</td>
-                            <td style="width: 8%">
+                            <td style="width: 10%">
                                 <a data-toggle="tooltip" data-title="Modification" class="btn btn-success" href="@Url.Action("AjouterEvenement", "Admin", new { pID=@e.Id } )"><i class="fa fa-pencil"></i></a>
                                 <a data-toggle="tooltip" data-title="Suppression" class="btn btn-danger Suppr" onclick="ClickSuppr(@e.Id)" ><i class="fa fa-trash-o fa-lg"></i> </a>
                             </td>

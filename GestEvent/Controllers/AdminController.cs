@@ -68,5 +68,20 @@ namespace GestEvent.Controllers
             else {  eventService.Delete(eventService.Get(pID)); }
             return RedirectToAction("IndexEvenement");
         }
+
+        public ActionResult IndexThemes()
+        {
+            AdminViewModels vm = new AdminViewModels();
+            List<Theme> maListe = themeService.FindAll();
+            vm.ListTheme = maListe;
+            return View(vm);
+        }
+
+        public ActionResult AjoutTheme(AdminViewModels pVm)
+        {
+            themeService.Create(pVm.MonTheme);
+            pVm.ListTheme = themeService.FindAll();
+            return View("IndexThemes", pVm);
+        }
     }
 }

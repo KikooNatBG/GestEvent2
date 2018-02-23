@@ -1,0 +1,20 @@
+﻿@model GestEvent.Models.AdminViewModels
+
+<table class="table AdminTable  table-hover dataTable">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (BO.Theme t in Model.ListTheme)
+        {
+            <tr>
+                <td>@t.Name</td>
+                <td>Supprimer</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

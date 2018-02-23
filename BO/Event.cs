@@ -9,7 +9,11 @@ namespace BO
     public class Event
     {
         public int Id { get; set; }
-        
+
+        public string Name { get; set; }
+
+        public string PlaceName { get; set; }
+
         public String Address { get; set; }
 
         public DateTime Date { get; set; }
@@ -18,7 +22,7 @@ namespace BO
 
         public string Description { get; set; }
 
-        public Theme Theme { get; set; }
+        public virtual Theme Theme { get; set; }
 
     }
 }

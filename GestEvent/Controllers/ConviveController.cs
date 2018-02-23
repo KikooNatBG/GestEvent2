@@ -66,8 +66,9 @@ namespace GestEvent.Controllers
             }
 
             conviveVM.ViewRubricUrl = "~/Views/Convive/Parking.cshtml";
-
+          
             return View("~/Views/Convive/Index.cshtml", conviveVM);
+            
         }
 
         public ActionResult DisplayRubric(string rubric)
