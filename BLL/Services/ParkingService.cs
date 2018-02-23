@@ -36,20 +36,19 @@ namespace BLL.Services
         {
             foreach (Parking p in parkings.ParkingsList)
             {
-                p.Distance = DistanceBetweenPoints(latitude,
-                    p.ParkingInfo.Coordinates[0], longitude,
-                    p.ParkingInfo.Coordinates[1]);
+                p.Distance = DistanceBetweenPoints(latitude,longitude,p.ParkingInfo.Coordinates[0],p.ParkingInfo.Coordinates[1]);
             }
         }
 
         public double DistanceBetweenPoints(double latitudeA, double longitudeA, double latitudeB, double longitudeB)
         {
-            var earthRadius = 6371;
-            var dLat = DegreesToRadians(latitudeB - latitudeA);
-            var dLong = DegreesToRadians(longitudeB - longitudeA);
+            var earthRadius = 6371000;
+            
             var lat1 = DegreesToRadians(latitudeA);
             var lat2 = DegreesToRadians(latitudeB);
-
+            var dLat = DegreesToRadians(latitudeB - latitudeA);
+            var dLong = DegreesToRadians(longitudeB - longitudeA);
+            
             var formula = Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
                           Math.Sin(dLong / 2) * Math.Sin(dLong / 2) * Math.Cos(lat1) * Math.Cos(lat2);
             var calcul = 2 * Math.Atan2(Math.Sqrt(formula), Math.Sqrt(1 - formula));
@@ -60,5 +59,6 @@ namespace BLL.Services
         {
             return degrees * Math.PI / 180;
         }
+
     }
 }
