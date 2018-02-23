@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System;
 using System.Net;
 using System.Xml.Linq;
-using System.Net.Http;
 
 namespace BLL.Services
 {
@@ -44,7 +43,7 @@ namespace BLL.Services
 
         public Event GetGeolocalisation(string address)
         {
-            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0},%2035000%20Rennes,%20France&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
+            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0}&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
 
             WebRequest request = WebRequest.Create(requestUri);
             WebResponse response = request.GetResponse();
@@ -54,9 +53,9 @@ namespace BLL.Services
             XElement locationElement = result.Element("geometry").Element("location");
             Event evenement = new Event();
             
-            evenement.longitude = Convert.ToDouble(locationElement.Element("lng").Value.Replace(".", ","));
-            evenement.latitude = Convert.ToDouble(locationElement.Element("lat").Value.Replace(".", ","));
-            
+            evenement.Lagitude = Convert.ToDouble(locationElement.Element("lat").Value.Replace(".",","));
+            evenement.Longitude = Convert.ToDouble(locationElement.Element("lng").Value.Replace(".", ","));
+
             return evenement;
         }
     }

@@ -11,12 +11,6 @@ namespace BO
 
         public string PlaceName { get; set; }
 
-        [NotMapped]
-        public double longitude { get; set; }
-
-        [NotMapped]
-        public double latitude { get; set; }
-
         public String Address { get; set; }
 
         public DateTime Date { get; set; }
@@ -29,3 +23,13 @@ namespace BO
 
     }
 }
+
+        public string Name { get; set; }
+
+        public string PlaceName { get; set; }
+
+        [NotMapped]
+        public double Longitude { get; set; }
+
+        [NotMapped]
+        public double Lagitude { get; set; }
