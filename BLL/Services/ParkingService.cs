@@ -5,6 +5,7 @@ using System;
 using System.Data;
 using System.Linq;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace BLL.Services
 { 
@@ -20,7 +21,7 @@ namespace BLL.Services
 
         }
         
-        public Parkings GetNearerParkings(double latitude,double longitude)
+        public List<Parking> GetNearerParkings(double latitude,double longitude)
         {
             var response = new HttpClient().GetStringAsync(_parkUrl).Result;
             //var jsonResponse = await response;
@@ -29,7 +30,8 @@ namespace BLL.Services
             // Sort
             AddDistanceInParkings(latitude,longitude);
             parkings.ParkingsList = parkings.ParkingsList.OrderBy(p => p.Distance).Take(3).ToList();
-            return parkings;
+
+            return parkings.ParkingsList;
         }
 
         public void AddDistanceInParkings(double latitude,double longitude)

@@ -14,14 +14,14 @@
 
 <div class="row" style="min-height:450px;margin-top:50px">
     <div class="col-sm-8" style="display:flex">
-        <div style="width:1000px;height:450px;background-color:white;margin-left: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px;padding: 15px;">
+        <div style="width:1100px;height:450px;background-color:white;margin-left: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px;padding: 15px;">
             <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d42629.126377540604!2d-1.678067205160248!3d48.10405474665268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sparking+rennes!5e0!3m2!1sfr!2sfr!4v1519135034052"
                     style="width:100%; height:100%;border:0" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
     <div class="col-sm-4" style="display:flex">
         <div class="col-sm-11" style="height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
-            @if (Model.LstParkings.Count != 0 || Model.Parking.Id != 0)
+            @if (Model.LstParkings.Count != 0 || Model.Parking.ParkingInfo != null)
             {
                 <div class="row col-sm-12 btn-group" style="height:45px;margin: 0;">
                     <a href="@Url.Action("Index", new { rubric = "Research" })" class="col-sm-6 btn btn-default" style="height:100%;display:flex">
