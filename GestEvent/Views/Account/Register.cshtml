@@ -1,4 +1,5 @@
 ﻿@model GestEvent.Models.RegisterViewModel
+@using BO
 @{
     ViewBag.Title = "Inscrire un utilisateur";
 }
@@ -29,9 +30,20 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
-
-
-
+    <div class="form-group">
+            @Html.LabelFor(m => m.role, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.role,
+             new SelectList(new List<Object> {
+                    new { value = Role.ADMINISTRATEUR , text = "Administrateur"  },
+                    new { value = Role.GUEST , text = "Invité" } },
+                 "value",
+                 "text",
+                 1
+             ),
+             new { @class = "form-control" })
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

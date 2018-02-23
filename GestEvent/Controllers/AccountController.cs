@@ -9,6 +9,9 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GestEvent.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using BO;
+using System.Collections.Generic;
 
 namespace GestEvent.Controllers
 {
@@ -138,7 +141,7 @@ namespace GestEvent.Controllers
         // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
-        {
+        {            
             return View();
         }
 
@@ -152,11 +155,15 @@ namespace GestEvent.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var role = model.role;
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
+                    var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>());
+                    UserManager.AddToRole(user.Id, role);
+
                     // Pour plus d'informations sur l'activation de la confirmation du compte et la réinitialisation du mot de passe, consultez http://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
