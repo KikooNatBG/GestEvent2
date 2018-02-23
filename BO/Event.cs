@@ -18,7 +18,7 @@ namespace BO
 
         public string Description { get; set; }
 
-        public Theme Theme { get; set; }
+        public virtual Theme Theme { get; set; }
 
     }
 }
