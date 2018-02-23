@@ -30,7 +30,8 @@ namespace BLL.Services
             // Sort
             AddDistanceInParkings(latitude,longitude);
             parkings.ParkingsList = parkings.ParkingsList.OrderBy(p => p.Distance).Take(3).ToList();
-            return parkings;
+
+            return parkings.ParkingsList;
         }
 
         public void AddDistanceInParkings(double latitude,double longitude)
@@ -64,5 +65,3 @@ namespace BLL.Services
     }
 }
 
-
-            return parkings.ParkingsList;

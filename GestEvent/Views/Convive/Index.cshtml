@@ -53,9 +53,10 @@
             data: { rubric: pRubric },
             success: function (result) {
                 console.log(result.Name);
-                $("#parkingName").html(result.Name);
-                $("#parkingTotalPlaces").html("Nb place Maximun : " + result.TotalPlaces);
-                $("#parkingFreePlaces").html("Nb place libre : " + result.FreePlaces);
+                $("#parkingName").html(result.ParkingInfo.Name);
+                $("#parkingMaxPlaces").html("Nb place Maximun : " + result.ParkingInfo.MaxPlaces);
+                $("#parkingFreePlaces").html("Nb place libre : " + result.ParkingInfo.FreePlaces);
+                $("#parkingDitance").html("Distance : " + result.Distance + " Km/h");
             },
             error: function (xhr, textstatus, errorthrown) {
                 console.log(textstatus);
