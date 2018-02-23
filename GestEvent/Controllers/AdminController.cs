@@ -55,7 +55,7 @@ namespace GestEvent.Controllers
         public ActionResult AjoutEvent(AdminViewModels pVm)
         {
             if(pVm.IdThemeSelected != 0) { pVm.MonEvent.Theme = themeService.Get(pVm.IdThemeSelected); }
-            Event monEvent = pVm.MonEvent;
+            Event MonEvent = pVm.MonEvent;
             if (ModelState.IsValid){
                 if (pVm.MonEvent.Id != 0) { eventService.Update(pVm.MonEvent); }
                 else { eventService.Create(pVm.MonEvent); } 
