@@ -58,5 +58,16 @@ namespace BLL.Services
 
             return evenement;
         }
+
+
+        public List<Event> GetEventByIDTheme(int pIDTheme)
+        {
+            if (pIDTheme != 0)
+            {
+                return _eventRepository.GetEventsByIDTheme(pIDTheme);
+            }
+            return new List<Event>();
+        }
     }
 }
+
