@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BO
 {
@@ -13,6 +10,12 @@ namespace BO
         public string Name { get; set; }
 
         public string PlaceName { get; set; }
+
+        [NotMapped]
+        public double Longitude { get; set; }
+
+        [NotMapped]
+        public double Lagitude { get; set; }
 
         public String Address { get; set; }
 
