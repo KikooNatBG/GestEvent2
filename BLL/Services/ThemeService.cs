@@ -6,37 +6,37 @@ namespace BLL.Services
 {
     public class ThemeService
     {
-        private readonly ThemeRepository themeRepository;
+        private readonly ThemeRepository _themeRepository;
 
 
         public ThemeService(ThemeRepository themeRepository)
         {
-            this.themeRepository = themeRepository;
+            this._themeRepository = themeRepository;
         }
 
-        public List<Theme> findAll()
+        public List<Theme> FindAll()
         {
-            return themeRepository.findAll();
+            return _themeRepository.FindAll();
         }
 
-        public Theme get(int? id)
+        public Theme Get(int? id)
         {
-            return themeRepository.get(id);
+            return _themeRepository.Get(id);
         }
 
-        public void create(Theme obj)
+        public void Create(Theme obj)
         {
-            themeRepository.create(obj);
+            _themeRepository.Create(obj);
         }
 
-        public virtual void update(Theme obj)
+        public virtual void Update(Theme obj)
         {
-            themeRepository.update(obj);
+            _themeRepository.Update(obj);
         }
 
-        public virtual void delete(Theme obj)
+        public virtual void Delete(Theme obj)
         {
-            themeRepository.delete(obj);
+            _themeRepository.Delete(obj);
         }
 
     }
