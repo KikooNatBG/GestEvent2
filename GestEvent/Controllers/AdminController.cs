@@ -42,10 +42,13 @@ namespace GestEvent.Controllers
         [HttpGet]
         public ActionResult AjouterEvenement(int pID=0)
         {
+            
             AdminViewModels vm = new AdminViewModels();
-            if (pID!=0) { vm.MonEvent = eventService.Get(pID); }
-            List<Theme> maListe = themeService.FindAll();  
+            vm.Title = "Ajouter un évènement";
+            List<Theme> maListe = themeService.FindAll();
+            if (pID!=0) { vm.MonEvent = eventService.Get(pID); vm.Title = "Modification d'un évènement"; vm.IdThemeSelected = vm.MonEvent.Theme.Id;   }
             vm.ListTheme = maListe;
+            
             return View(vm);
         }
 
@@ -79,9 +82,20 @@ namespace GestEvent.Controllers
 
         public ActionResult AjoutTheme(AdminViewModels pVm)
         {
-            themeService.Create(pVm.MonTheme);
-            pVm.ListTheme = themeService.FindAll();
-            return View("IndexThemes", pVm);
+            if (ModelState.IsValid)
+            {
+                themeService.Create(pVm.MonTheme);
+            }
+
+            return RedirectToAction("IndexThemes");
+        }
+
+
+        public JsonResult RemplirModal(string pID)
+        {
+            int ID = Convert.ToInt32(pID);
+            List<Event> MaListe = eventService.GetEventByIDTheme(ID);
+            return Json(MaListe);
         }
     }
 }

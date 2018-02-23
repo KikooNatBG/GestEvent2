@@ -18,7 +18,7 @@ namespace GestEvent.Models
 
         public Theme MonTheme { get; set; }
 
-
+        public String Title { get; set; }
 
 
     }
