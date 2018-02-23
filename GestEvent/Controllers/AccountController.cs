@@ -139,7 +139,7 @@ namespace GestEvent.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = Role.ADMINISTRATEUR)]
         public ActionResult Register()
         {            
             return View();
@@ -148,7 +148,7 @@ namespace GestEvent.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = Role.ADMINISTRATEUR)]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {

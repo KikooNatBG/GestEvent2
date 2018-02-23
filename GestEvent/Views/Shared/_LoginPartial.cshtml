@@ -10,17 +10,16 @@
             @Html.ActionLink("Bonjour " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
-        @if (User.IsInRole("Administrateur")){
-        
-        }
-        <li>@Html.ActionLink("Inscrire un utilisateur", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        @if (User.IsInRole("Administrateur"))
+        {
+            <li>@Html.ActionLink("Inscrire un utilisateur", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        }        
     </ul>
     }
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("S’inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
