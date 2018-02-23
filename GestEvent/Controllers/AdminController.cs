@@ -34,8 +34,8 @@ namespace GestEvent.Controllers
         public ActionResult IndexEvenement()
         {
             AdminViewModels vm = new AdminViewModels();
-            List<Event> maListe = eventService.findAll();
-            vm.maListe = maListe;
+            List<Event> maListe = eventService.FindAll();
+            vm.MaListe = maListe;
             return View(vm);
         }
 
@@ -43,21 +43,21 @@ namespace GestEvent.Controllers
         public ActionResult AjouterEvenement(int pID=0)
         {
             AdminViewModels vm = new AdminViewModels();
-            if (pID!=0) { vm.monEvent = eventService.get(pID); }
-            List<Theme> maListe = themeService.findAll();  
-            vm.listTheme = maListe;
+            if (pID!=0) { vm.MonEvent = eventService.Get(pID); }
+            List<Theme> maListe = themeService.FindAll();  
+            vm.ListTheme = maListe;
             return View(vm);
         }
 
         public ActionResult AjoutEvent(AdminViewModels pVm)
         {
-            if(pVm.idThemeSelected != 0) { pVm.monEvent.Theme = themeService.get(pVm.idThemeSelected); }
-            Event monEvent = pVm.monEvent;
+            if(pVm.IdThemeSelected != 0) { pVm.MonEvent.Theme = themeService.Get(pVm.IdThemeSelected); }
+            Event monEvent = pVm.MonEvent;
             if (ModelState.IsValid){
-                if (pVm.monEvent.Id != 0) { eventService.update(pVm.monEvent); }
-                else { eventService.create(pVm.monEvent); } 
+                if (pVm.MonEvent.Id != 0) { eventService.Update(pVm.MonEvent); }
+                else { eventService.Create(pVm.MonEvent); } 
             }else{
-                return RedirectToAction("AjouterEvenement", new { pID = pVm.monEvent.Id });
+                return RedirectToAction("AjouterEvenement", new { pID = pVm.MonEvent.Id });
             } 
             return RedirectToAction("IndexEvenement");
         }
@@ -65,7 +65,7 @@ namespace GestEvent.Controllers
         public ActionResult SupprimerEvent(int pID = 0)
         {
             if (pID == 0) { return RedirectToAction("IndexEvenement"); }
-            else {  eventService.delete(eventService.get(pID)); }
+            else {  eventService.Delete(eventService.Get(pID)); }
             return RedirectToAction("IndexEvenement");
         }
     }

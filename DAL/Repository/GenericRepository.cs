@@ -7,42 +7,42 @@ namespace DAL.Repository
 {
     public class GenericRepository<T> where T : class
     {
-        protected Context context;
-        private readonly DbSet<T> dbSet;
+        protected Context Context;
+        private readonly DbSet<T> _dbSet;
 
         public GenericRepository(Context context)
         {
-            this.context = context;
-            dbSet = this.context.Set<T>();
+            this.Context = context;
+            _dbSet = this.Context.Set<T>();
         }
 
-        public List<T> findAll()
+        public List<T> FindAll()
         {
-            return dbSet.ToList();
+            return _dbSet.ToList();
         }
 
-        public T get(int? id)
+        public T Get(int? id)
         {
-            return dbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
-        public void create(T obj)
+        public void Create(T obj)
         {
-            dbSet.Add(obj);
-            context.SaveChanges();
+            _dbSet.Add(obj);
+            Context.SaveChanges();
         }
 
-        public virtual void update(T obj)
+        public virtual void Update(T obj)
         {
-            context.Entry(obj).State = EntityState.Modified;
+            Context.Entry(obj).State = EntityState.Modified;
 
-            context.SaveChanges();
+            Context.SaveChanges();
         }
 
-        public virtual void delete(T obj)
+        public virtual void Delete(T obj)
         {
-            dbSet.Remove(obj);
-            context.SaveChanges();
+            _dbSet.Remove(obj);
+            Context.SaveChanges();
         }
     }
 }

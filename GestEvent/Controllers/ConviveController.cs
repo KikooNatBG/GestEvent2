@@ -51,40 +51,41 @@ namespace GestEvent.Controllers
 
             Parking parking = new Parking();
 
-            parking.Id = 1;
-            parking.Name = "Gare Sud";
-            parking.TotalPlaces = 200;
-            parking.FreePlaces = 100;
+            /*  parking.Id = 1;
+              parking.Name = "Gare Sud";
+              parking.TotalPlaces = 200;
+              parking.FreePlaces = 100;
 
-            lstParking.Add(parking);
+              lstParking.Add(parking);
 
-            Parking parking2 = new Parking();
+              Parking parking2 = new Parking();
 
-            parking2.Id = 2;
-            parking2.Name = "Colombier";
-            parking2.TotalPlaces = 300;
-            parking2.FreePlaces = 200;
+              parking2.Id = 2;
+              parking2.Name = "Colombier";
+              parking2.TotalPlaces = 300;
+              parking2.FreePlaces = 200;
 
-            lstParking.Add(parking2);
+              lstParking.Add(parking2);
 
-            Parking parking3 = new Parking();
+              Parking parking3 = new Parking();
 
-            parking3.Id = 3;
-            parking3.Name = "Places des lices";
-            parking3.TotalPlaces = 2500;
-            parking3.FreePlaces = 2000;
+              parking3.Id = 3;
+              parking3.Name = "Places des lices";
+              parking3.TotalPlaces = 2500;
+              parking3.FreePlaces = 2000;
 
-            lstParking.Add(parking3);
-            
-            _lstParking = lstParking;
-            
+              lstParking.Add(parking3);
+
+              _lstParking = lstParking;
+                */
             ConviveViewModel conviveVM = new ConviveViewModel();
 
             conviveVM.Parking = _lstParking[0];
 
             conviveVM.ViewRubricUrl = "~/Views/Convive/Parking.cshtml";
-
+          
             return View("~/Views/Convive/Index.cshtml", conviveVM);
+            
         }
         
         public ActionResult DisplayRubric(string rubric)
