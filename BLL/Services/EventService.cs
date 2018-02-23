@@ -44,5 +44,34 @@ namespace BLL.Services
         {
             _eventRepository.Delete(obj);
         }
+
+        public Event GetGeolocalisation(string address)
+        {
+            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0}&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
+
+            WebRequest request = WebRequest.Create(requestUri);
+            WebResponse response = request.GetResponse();
+            XDocument xdoc = XDocument.Load(response.GetResponseStream());
+
+            XElement result = xdoc.Element("GeocodeResponse").Element("result");
+            XElement locationElement = result.Element("geometry").Element("location");
+            Event evenement = new Event();
+            
+            evenement.Lagitude = Convert.ToDouble(locationElement.Element("lat").Value.Replace(".",","));
+            evenement.Longitude = Convert.ToDouble(locationElement.Element("lng").Value.Replace(".", ","));
+
+            return evenement;
+        }
+
+
+        public List<Event> GetEventByIDTheme(int pIDTheme)
+        {
+            if (pIDTheme != 0)
+            {
+                return _eventRepository.GetEventsByIDTheme(pIDTheme);
+            }
+            return new List<Event>();
+        }
     }
 }
+

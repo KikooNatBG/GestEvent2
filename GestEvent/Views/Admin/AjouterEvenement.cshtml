@@ -8,7 +8,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header AdminHeader">Ajout d'un Evenement</h1>
+            <h1 class="page-header AdminHeader">@Model.Title</h1>
         </div>
     </div>
 </div>
@@ -54,7 +54,7 @@
                 </div>
 
             </div>
-            @Html.HiddenFor(Model => Model.monEvent.Id)
+            @Html.HiddenFor(Model => Model.MonEvent.Id)
             <input id="m_validateur" type="submit" value="Envoyer" class="btn btn-default" />
         }
     </div>
