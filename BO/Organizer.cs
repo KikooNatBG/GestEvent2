@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Organizer
+    public class Organizer : Person
     {
-        public int Id { get; set; }
-
-        public string Login { get; set; }
-
-        public string Password { get; set; }
     }
 }
