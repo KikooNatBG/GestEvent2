@@ -14,7 +14,6 @@ namespace DAL
 
         public DbSet<Theme> Themes { get; set; }
 
-
         public static Context Create()
         {
             return new Context();
