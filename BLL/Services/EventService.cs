@@ -42,11 +42,22 @@ namespace BLL.Services
             _eventRepository.Delete(obj);
         }
 
-        public void GetGeolocalisation(string address)
+        public Event GetGeolocalisation(string address)
         {
-            string req = string.Format("https://maps.googleapis.com/maps/api/geocode/json?address={0},%2035000%20Rennes,%20France&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", address);
-            string re = new HttpClient().GetStringAsync(req).Result;
-            Event events = Newtonsoft.Json.JsonConvert.DeserializeObject<Event>(re);
+            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0},%2035000%20Rennes,%20France&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
+
+            WebRequest request = WebRequest.Create(requestUri);
+            WebResponse response = request.GetResponse();
+            XDocument xdoc = XDocument.Load(response.GetResponseStream());
+
+            XElement result = xdoc.Element("GeocodeResponse").Element("result");
+            XElement locationElement = result.Element("geometry").Element("location");
+            Event evenement = new Event();
+            
+            evenement.longitude = Convert.ToDouble(locationElement.Element("lng").Value.Replace(".", ","));
+            evenement.latitude = Convert.ToDouble(locationElement.Element("lat").Value.Replace(".", ","));
+            
+            return evenement;
         }
     }
 }
