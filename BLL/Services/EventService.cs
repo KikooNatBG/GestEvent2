@@ -2,8 +2,7 @@
 using DAL.Repository;
 using System.Collections.Generic;
 using System;
-using System.Net;
-using System.Xml.Linq;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -26,17 +25,22 @@ namespace BLL.Services
             return _eventRepository.Get(id);
         }
 
+        public List<Event> GetByThemeId(int? id)
+        {
+            return _eventRepository.FindAll().Where(e => e.Theme.Id == id).ToList();
+        }
+
         public void Create(Event obj)
         {
             _eventRepository.Create(obj);
         }
 
-        public virtual void Update(Event obj)
+        public void Update(Event obj)
         {
             _eventRepository.Update(obj);
         }
 
-        public virtual void Delete(Event obj)
+        public void Delete(Event obj)
         {
             _eventRepository.Delete(obj);
         }
