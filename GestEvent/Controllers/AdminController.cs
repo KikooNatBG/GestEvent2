@@ -8,6 +8,7 @@ using GestEvent.Models;
 using DAL;
 using BLL.Services;
 using DAL.Repository;
+using System.Web.Helpers;
 
 namespace GestEvent.Controllers
 {
@@ -58,8 +59,22 @@ namespace GestEvent.Controllers
             Event MonEvent = pVm.MonEvent;
             if (ModelState.IsValid){
                 if (pVm.MonEvent.Id != 0) { eventService.Update(pVm.MonEvent); }
-                else { eventService.Create(pVm.MonEvent); } 
-            }else{
+                else { eventService.Create(pVm.MonEvent); }
+                HttpFileCollectionBase photos = Request.Files;
+                if (null != photos)
+                {
+                    foreach (var photo in photos)
+                    {
+                        EventImage image = new EventImage();
+                        image.Name = "nom de l'image";
+                        image.Path = @"Images\" + image.Name;
+                        //photo.save(@"~\" + image.Path);
+                        image.Event = pVm.MonEvent;
+                        //imageService.create(image)
+                    }
+                }
+            }
+            else{
                 return RedirectToAction("AjouterEvenement", new { pID = pVm.MonEvent.Id });
             } 
             return RedirectToAction("IndexEvenement");
