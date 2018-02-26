@@ -39,20 +39,7 @@
 
             function calcRoute() {
                 var start = new google.maps.LatLng(37.334818, -121.884886);
-                //var end = new google.maps.LatLng(38.334818, -181.884886);
                 var end = new google.maps.LatLng(37.441883, -122.143019);
-                /*
-        var startMarker = new google.maps.Marker({
-                    position: start,
-                    map: map,
-                    draggable: true
-                });
-                var endMarker = new google.maps.Marker({
-                    position: end,
-                    map: map,
-                    draggable: true
-                });
-        */
                 var bounds = new google.maps.LatLngBounds();
                 bounds.extend(start);
                 bounds.extend(end);
@@ -75,15 +62,6 @@
             google.maps.event.addDomListener(window, 'load', initialize);
         }
         mapLocation();
-
-
-
-
-
-
-
-
-
 
     </script>
 
