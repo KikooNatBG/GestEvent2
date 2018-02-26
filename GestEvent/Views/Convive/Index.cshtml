@@ -15,8 +15,10 @@
 <div class="row" style="min-height:450px;margin-top:50px">
     <div class="col-sm-8" style="display:flex">
         <div style="width:1100px;height:450px;background-color:white;margin-left: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px;padding: 15px;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d42629.126377540604!2d-1.678067205160248!3d48.10405474665268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sparking+rennes!5e0!3m2!1sfr!2sfr!4v1519135034052"
-                    style="width:100%; height:100%;border:0" frameborder="0" allowfullscreen></iframe>
+            @*<iframe src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d42629.126377540604!2d-1.678067205160248!3d48.10405474665268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sparking+rennes!5e0!3m2!1sfr!2sfr!4v1519135034052"
+                    style="width:100%; height:100%;border:0" frameborder="0" allowfullscreen></iframe>*@
+                <div id="map-canvas" style="height:100%; width:100%;height:100%"></div>
+            
         </div>
     </div>
     <div class="col-sm-4" style="display:flex">
@@ -56,11 +58,59 @@
                 $("#parkingName").html(result.ParkingInfo.Name);
                 $("#parkingMaxPlaces").html("Nb place Maximun : " + result.ParkingInfo.MaxPlaces);
                 $("#parkingFreePlaces").html("Nb place libre : " + result.ParkingInfo.FreePlaces);
-                $("#parkingDitance").html("Distance : " + result.Distance + " Km/h");
+                $("#parkingDitance").html("Distance : " + result.ParkingInfo.DistanceFromStart + " Km/h");
             },
             error: function (xhr, textstatus, errorthrown) {
                 console.log(textstatus);
             }
         })
     }
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&key=AIzaSyAlK8xB5HDMISLLsJdsRVIIFJFhZoXeZws&libraries=geometry,places,drawing&ext=.js"></script>
+
+<script>
+        function mapLocation() {
+            var directionsDisplay;
+            var directionsService = new google.maps.DirectionsService();
+            var map;
+
+            function initialize() {
+                directionsDisplay = new google.maps.DirectionsRenderer();
+                var chicago = new google.maps.LatLng(37.434818, -121.884886);
+                var mapOptions = {
+                    zoom: 7,
+                    center: chicago
+                };
+                map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                directionsDisplay.setMap(map);
+                google.maps.event.addDomListener(document.getElementById('btnGoToParking'), 'click', calcRoute);
+            }
+
+            function calcRoute() {
+                var start = new google.maps.LatLng(37.334818, -121.884886);
+                var end = new google.maps.LatLng(37.441883, -122.143019);
+                var bounds = new google.maps.LatLngBounds();
+                bounds.extend(start);
+                bounds.extend(end);
+                map.fitBounds(bounds);
+                var request = {
+                    origin: start,
+                    destination: end,
+                    travelMode: google.maps.TravelMode.DRIVING
+                };
+                directionsService.route(request, function (response, status) {
+                    if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                        directionsDisplay.setMap(map);
+                    } else {
+                        alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+                    }
+                });
+            }
+
+            google.maps.event.addDomListener(window, 'load', initialize);
+        }
+        mapLocation();
+
 </script>

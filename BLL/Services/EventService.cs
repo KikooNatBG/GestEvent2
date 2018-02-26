@@ -60,7 +60,7 @@ namespace BLL.Services
             XElement locationElement = result.Element("geometry").Element("location");
             Event evenement = new Event();
             
-            evenement.Lagitude = Convert.ToDouble(locationElement.Element("lat").Value.Replace(".",","));
+            evenement.Latitude = Convert.ToDouble(locationElement.Element("lat").Value.Replace(".",","));
             evenement.Longitude = Convert.ToDouble(locationElement.Element("lng").Value.Replace(".", ","));
 
             return evenement;
