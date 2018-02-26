@@ -19,6 +19,15 @@
         {
             <div class="form-group">
                 <div class="col-lg-2 control-label">
+                    <label> Nom : </label>
+                </div>
+                <div class="col-lg-3">
+                    @Html.TextBoxFor(model => model.MonEvent.Name, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-2 control-label">
                     <label> Adresse : </label>
                 </div>      
                 <div class="col-lg-3">
@@ -52,7 +61,16 @@
                 <div class="col-lg-3">
                     @Html.TextBoxFor(model => model.MonEvent.Duration, new { @class = "form-control" })
                 </div>
-
+            </div>
+            <div class="form-group">
+                <div class="col-lg-2 control-label">
+                    <label for="Image">Ajouter des images :</label>
+                </div>
+                <div class="col-lg-3">
+                    <input type="file" name="Image" />
+                    <input type="file" name="Image" />
+                    <input type="file" name="Image" />
+                </div>
             </div>
             @Html.HiddenFor(Model => Model.MonEvent.Id)
             <input id="m_validateur" type="submit" value="Envoyer" class="btn btn-default" />

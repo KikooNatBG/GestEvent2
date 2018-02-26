@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BO
@@ -26,6 +27,8 @@ namespace BO
         public string Description { get; set; }
 
         public virtual Theme Theme { get; set; }
+
+        public virtual List<EventImage> Images { get; set; }
 
     }
 }
