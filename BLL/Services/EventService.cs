@@ -3,6 +3,8 @@ using DAL.Repository;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Net;
+using System.Xml.Linq;
 
 namespace BLL.Services
 {
