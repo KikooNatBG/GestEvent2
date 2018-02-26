@@ -78,6 +78,14 @@
     <Compile Include="Migrations\201802231126187_seven.Designer.cs">
       <DependentUpon>201802231126187_seven.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802261020467_eight.cs" />
+    <Compile Include="Migrations\201802261020467_eight.Designer.cs">
+      <DependentUpon>201802261020467_eight.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802261100231_nine.cs" />
+    <Compile Include="Migrations\201802261100231_nine.Designer.cs">
+      <DependentUpon>201802261100231_nine.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EventRepository.cs" />
@@ -115,6 +123,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802231126187_seven.resx">
       <DependentUpon>201802231126187_seven.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802261020467_eight.resx">
+      <DependentUpon>201802261020467_eight.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802261100231_nine.resx">
+      <DependentUpon>201802261100231_nine.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

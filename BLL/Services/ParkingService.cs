@@ -21,7 +21,7 @@ namespace BLL.Services
 
         }
         
-        public List<Parking> GetNearerParkings(double latitude,double longitude)
+        public List<Parking> GetNearerParkings(double latitudeEvent,double longitudeEvent, double latitudeStart, double longitudeStart)
         {
             var response = new HttpClient().GetStringAsync(_parkUrl).Result;
             //var jsonResponse = await response;
@@ -34,12 +34,13 @@ namespace BLL.Services
             return parkings.ParkingsList;
         }
 
-        public void AddDistanceInParkings(double latitude,double longitude)
+        public void AddDistanceInParkings(double latitudeEvent, double longitudeEvent, double latitudeStart, double longitudeStart)
         {
             foreach (Parking p in parkings.ParkingsList)
             {
-                p.Distance = DistanceBetweenPoints(latitude,longitude,p.ParkingInfo.Coordinates[0],p.ParkingInfo.Coordinates[1]);
-            }
+                p.ParkingInfo.DistanceFromEvent = DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0],p.ParkingInfo.Coordinates[1]);
+                p.ParkingInfo.DistanceFromStart = DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
+    }
         }
 
         public double DistanceBetweenPoints(double latitudeA, double longitudeA, double latitudeB, double longitudeB)
@@ -65,3 +66,7 @@ namespace BLL.Services
     }
 }
 
+
+            AddDistanceInParkings(latitudeEvent, longitudeEvent, latitudeStart, longitudeStart);
+            parkings.ParkingsList = parkings.ParkingsList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
+            parkings.ParkingsList = parkings.ParkingsList.OrderBy(p => p.ParkingInfo.DistanceFromStart).ToList();

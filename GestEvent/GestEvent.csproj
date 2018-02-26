@@ -216,6 +216,7 @@
     <Content Include="Content\Admin.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Geometrics.js" />
     <Content Include="Content\SBAdmin2\sbadmin2\data\flot-data.js" />
     <Content Include="Content\SBAdmin2\sbadmin2\data\morris-data.js" />
     <Content Include="Content\SBAdmin2\sbadmin2\dist\css\sb-admin-2.css" />
@@ -451,10 +452,12 @@
     <Content Include="Views\Shared\AdminSidebar.cshtml" />
     <Content Include="Views\Admin\IndexThemes.cshtml" />
     <Content Include="Views\Admin\AdminTableThemes.cshtml" />
+    <Content Include="Views\ViewTest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Draw\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
