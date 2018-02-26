@@ -1,0 +1,26 @@
+﻿@model GestEvent.Models.ConviveViewModel
+
+@using (Html.BeginForm("ResearchParking", "Convive"))
+{
+
+    if (Model.LstParkings.Count() == 0)
+    {
+        <div class="row" style="text-align:center">
+            <h2>Recherche parkings</h2>
+        </div>
+    }<br />
+
+    <div class="form-group" style="text-align:center">
+        <h3>Evenement</h3><br />
+        @Html.DropDownListFor(m => Model.Event.Address, new SelectList(Model.LstEvents, "Address", "Name"),
+                 new { @class = "form-control", @style = "margin:auto;" })
+    </div><br />
+    <div class="form-group" style="text-align:center">
+        <h3>Adresse de départ</h3><br />
+        @Html.TextBox("position", null, new { @class = "form-control", @style = "margin:auto;" })
+    </div><br />
+
+    <div class="row" style="text-align:center">
+        <input type="submit" class="btn btn-default" style="border-radius:6px;width:140px;height:35px;text-align:center" />
+    </div>
+}

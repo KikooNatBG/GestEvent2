@@ -1,0 +1,25 @@
+﻿.AdminHeader {
+    border-bottom: 2px solid #1885F0 !important;
+}
+.AdminContent {
+    box-shadow:0px 0px 5px 1px #808080; 
+    padding:19px;
+    border-radius:5px;
+    margin-bottom: 25px;
+}
+.AdminContentForm {
+    box-shadow:0px 0px 5px 1px #808080; 
+    padding:30px;
+    border-radius:5px;
+}
+
+.AdminTable {
+    /*text-align:center;*/
+}
+
+
+.AdminTable > tbody > tr > td, 
+.AdminTable > thead > tr > th {
+    text-align:center;
+}
+    

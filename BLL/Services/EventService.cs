@@ -1,41 +1,77 @@
 ﻿using BO;
 using DAL.Repository;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace BLL.Services
 {
-    class EventService
+    public class EventService
     {
-        private readonly EventRepository eventRepository;
+        private readonly EventRepository _eventRepository;
 
         public EventService(EventRepository eventRepository)
         {
-            this.eventRepository = eventRepository;
+            this._eventRepository = eventRepository;
         }
 
-        public List<Event> findAll()
+        public List<Event> FindAll()
         {
-            return eventRepository.findAll();
+            return _eventRepository.FindAll();
         }
 
-        public Event get(int? id)
+        public Event Get(int? id)
         {
-            return eventRepository.get(id);
+            return _eventRepository.Get(id);
         }
 
-        public void create(Event obj)
+        public List<Event> GetByThemeId(int? id)
         {
-            eventRepository.create(obj);
+            return _eventRepository.FindAll().Where(e => e.Theme.Id == id).ToList();
         }
 
-        public virtual void update(Event obj)
+        public void Create(Event obj)
         {
-            eventRepository.update(obj);
+            _eventRepository.Create(obj);
         }
 
-        public virtual void delete(Event obj)
+        public void Update(Event obj)
         {
-            eventRepository.delete(obj);
+            _eventRepository.Update(obj);
+        }
+
+        public void Delete(Event obj)
+        {
+            _eventRepository.Delete(obj);
+        }
+
+        public Event GetGeolocalisation(string address)
+        {
+            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0}&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
+
+            WebRequest request = WebRequest.Create(requestUri);
+            WebResponse response = request.GetResponse();
+            XDocument xdoc = XDocument.Load(response.GetResponseStream());
+
+            XElement result = xdoc.Element("GeocodeResponse").Element("result");
+            XElement locationElement = result.Element("geometry").Element("location");
+            Event evenement = new Event();
+            
+            evenement.Lagitude = Convert.ToDouble(locationElement.Element("lat").Value.Replace(".",","));
+            evenement.Longitude = Convert.ToDouble(locationElement.Element("lng").Value.Replace(".", ","));
+
+            return evenement;
+        }
+
+
+        public List<Event> GetEventByIDTheme(int pIDTheme)
+        {
+            if (pIDTheme != 0)
+            {
+                return _eventRepository.GetEventsByIDTheme(pIDTheme);
+            }
+            return new List<Event>();
         }
     }
 }
+

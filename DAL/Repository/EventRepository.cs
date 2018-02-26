@@ -13,5 +13,10 @@ namespace DAL.Repository
         {
 
         }
+
+        public List<Event> GetEventsByIDTheme(int pIDTheme)
+        {
+            return this.Context.Events.Where(c => c.Theme.Id == pIDTheme).ToList();
+        }
     }
 }

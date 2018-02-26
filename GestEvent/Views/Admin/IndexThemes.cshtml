@@ -1,0 +1,44 @@
+﻿@model GestEvent.Models.AdminViewModels
+@{
+
+    Layout = "~/Views/Shared/AdminLayout.cshtml";
+    ViewBag.Title = "IndexµThemes";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header AdminHeader">Liste des Thèmes</h1>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="AdminContent">
+            @using (Html.BeginForm("AjoutTheme", "Admin"
+                ,
+            new AjaxOptions
+            {
+                OnFailure = "",
+                HttpMethod = "GET",
+                UpdateTargetId = "AdminTableThemes"
+
+            }
+            ))
+            {
+                <div class="form-group row">
+                    <label class="col-lg-2 control-label">Thème</label>
+                    <div class="col-lg-3">
+                        @Html.TextBoxFor(model => model.MonTheme.Name, new { @class = "form-control " })
+                    </div>
+                   
+                    <input id="m_validateur" type="submit" value="Envoyer" class="col-lg-2 btn btn-default" />
+                </div>
+            }
+        </div>
+        <div class="AdminContent">
+            <div id="AdminTableThemes">
+                @Html.Partial("~/Views/Admin/AdminTableThemes.cshtml", Model)
+            </div>
+        </div>
+    </div>
+</div>
