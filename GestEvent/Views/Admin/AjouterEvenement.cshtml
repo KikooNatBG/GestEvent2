@@ -13,9 +13,9 @@
     </div>
 </div>
 
-    <div id="m_monContent"class="AdminContentForm form-horizontal ">
+    <div id="m_monContent"class="AdminContentForm form-horizontal " enctype="multipart/form-data">
 
-        @using (Html.BeginForm("AjoutEvent", "Admin"))
+        @using (Html.BeginForm("AjoutEvent", "Admin", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
             <div class="form-group">
                 <div class="col-lg-2 control-label">
@@ -68,12 +68,10 @@
                 </div>
                 <div class="col-lg-3">
                     <input type="file" name="Image" />
-                    <input type="file" name="Image" />
-                    <input type="file" name="Image" />
                 </div>
             </div>
             @Html.HiddenFor(Model => Model.MonEvent.Id)
-            <input id="m_validateur" type="submit" value="Envoyer" class="btn btn-default" />
+            <input id="m_validateur" type="submit" value="Envoyer" class="btn btn-default"/>
         }
     </div>
 <script>
