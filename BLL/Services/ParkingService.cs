@@ -21,25 +21,27 @@ namespace BLL.Services
 
         }
         
-        public List<Parking> GetNearerParkings(double latitude,double longitude)
+        public List<Parking> GetNearerParkings(double latitudeEvent,double longitudeEvent, double latitudeStart, double longitudeStart)
         {
             var response = new HttpClient().GetStringAsync(_parkUrl).Result;
             //var jsonResponse = await response;
             parkings = JsonConvert.DeserializeObject<Parkings>(response);
             //Console.WriteLine(parkings);
-            // Sort
-            AddDistanceInParkings(latitude,longitude);
-            parkings.ParkingsList = parkings.ParkingsList.OrderBy(p => p.Distance).Take(3).ToList();
-
+            //TODO : Ajouter long lat adresse de depart
+            AddDistanceInParkings(latitudeEvent,longitudeEvent);
+            parkings.ParkingsList = parkings.ParkingsList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
+            //TODO : Sort by start point distance
             return parkings.ParkingsList;
         }
 
-        public void AddDistanceInParkings(double latitude,double longitude)
+        //TODO : Ajouter long lat adresse de depart
+        public void AddDistanceInParkings(double latitudeEvent, double longitudeEvent)
         {
             foreach (Parking p in parkings.ParkingsList)
             {
-                p.Distance = DistanceBetweenPoints(latitude,longitude,p.ParkingInfo.Coordinates[0],p.ParkingInfo.Coordinates[1]);
-            }
+                p.ParkingInfo.DistanceFromEvent = DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0],p.ParkingInfo.Coordinates[1]);
+               // p.ParkingInfo.DistanceFromStart = DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
+    }
         }
 
         public double DistanceBetweenPoints(double latitudeA, double longitudeA, double latitudeB, double longitudeB)
@@ -64,4 +66,3 @@ namespace BLL.Services
 
     }
 }
-
