@@ -15,7 +15,6 @@ namespace BO
         [JsonProperty(PropertyName = "fields")]
         public ParkingInfo ParkingInfo { get; set; }
 
-        public double Distance { get; set; }
     }
 
     public class ParkingInfo
@@ -34,6 +33,16 @@ namespace BO
 
         [JsonProperty(PropertyName = "geo")]
         public List<double> Coordinates { get; set; }
+
+        public double DistanceFromEvent { get; set; }
+
+        public double DistanceFromStart { get; set; }
+
+        public double HourPriceDay { get; set; }
+
+        public double HourPriceNight { get; set; }
+
+
     }
 
 }
