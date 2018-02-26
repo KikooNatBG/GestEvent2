@@ -77,10 +77,10 @@
 
             function initialize() {
                 directionsDisplay = new google.maps.DirectionsRenderer();
-                var chicago = new google.maps.LatLng(37.434818, -121.884886);
+                var rennes = new google.maps.LatLng(37.434818, -121.884886);
                 var mapOptions = {
                     zoom: 7,
-                    center: chicago
+                    center: rennes
                 };
                 map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
                 directionsDisplay.setMap(map);
