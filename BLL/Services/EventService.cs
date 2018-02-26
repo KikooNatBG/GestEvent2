@@ -3,6 +3,8 @@ using DAL.Repository;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Net;
+using System.Xml.Linq;
 
 namespace BLL.Services
 {
@@ -49,6 +51,7 @@ namespace BLL.Services
         {
             string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0}&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
 
+            
             WebRequest request = WebRequest.Create(requestUri);
             WebResponse response = request.GetResponse();
             XDocument xdoc = XDocument.Load(response.GetResponseStream());
