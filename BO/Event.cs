@@ -16,7 +16,7 @@ namespace BO
         public double Longitude { get; set; }
 
         [NotMapped]
-        public double Lagitude { get; set; }
+        public double Latitude { get; set; }
 
         public String Address { get; set; }
 

@@ -49,7 +49,7 @@ namespace GestEvent.Controllers
         {
             Event evenement = _eventService.GetGeolocalisation(conviveViewModel.Event.Address);
 
-            List<Parking> lstParking = _parkingService.GetNearerParkings(evenement.Lagitude, evenement.Longitude);
+            List<Parking> lstParking = _parkingService.GetNearerParkings(evenement.Latitude, evenement.Longitude, 1, 1);
 
             _lstParking = lstParking;
 
