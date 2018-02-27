@@ -47,9 +47,11 @@ namespace GestEvent.Controllers
 
         public ActionResult ResearchParking(ConviveViewModel conviveViewModel)
         {
-            Event evenement = _eventService.GetGeolocalisation(conviveViewModel.Event.Address);
 
-            List<Parking> lstParking = _parkingService.GetNearerParkings(evenement.Lagitude, evenement.Longitude);
+            List<Double> MaList = _eventService.GetGeolocalisation(conviveViewModel.Event.Address);
+            List<Double> LatLongAdressUser = _eventService.GetGeolocalisation(conviveViewModel.AddresseUser);
+
+            List<Parking> lstParking = _parkingService.GetNearerParkings(MaList[0], MaList[1], LatLongAdressUser[0], LatLongAdressUser[1]);
 
             _lstParking = lstParking;
 
@@ -58,6 +60,7 @@ namespace GestEvent.Controllers
             if (_lstParking.Count != 0)
             {
                 conviveVM.Parking = _lstParking[0];
+                conviveVM.LatLongAdresseDepartUser = MaList;
             }
 
             conviveVM.ViewRubricUrl = "~/Views/Convive/Parking.cshtml";
