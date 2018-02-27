@@ -47,10 +47,10 @@ namespace BLL.Services
             _eventRepository.Delete(obj);
         }
 
-        public Event GetGeolocalisation(string address)
+        public List<Double> GetGeolocalisation(string address)
         {
             string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0}&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
-
+            List<Double> LatLon = new List<double>();
             
             WebRequest request = WebRequest.Create(requestUri);
             WebResponse response = request.GetResponse();
@@ -59,11 +59,11 @@ namespace BLL.Services
             XElement result = xdoc.Element("GeocodeResponse").Element("result");
             XElement locationElement = result.Element("geometry").Element("location");
             Event evenement = new Event();
-            
-            evenement.Latitude = Convert.ToDouble(locationElement.Element("lat").Value.Replace(".",","));
-            evenement.Longitude = Convert.ToDouble(locationElement.Element("lng").Value.Replace(".", ","));
 
-            return evenement;
+            LatLon.Add(Convert.ToDouble(locationElement.Element("lat").Value.Replace(".",",")));
+            LatLon.Add(Convert.ToDouble(locationElement.Element("lng").Value.Replace(".", ",")));
+
+            return LatLon;
         }
 
 
