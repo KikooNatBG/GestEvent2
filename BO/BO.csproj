@@ -47,8 +47,6 @@
   <ItemGroup>
     <Compile Include="Event.cs" />
     <Compile Include="EventImage.cs" />
-    <Compile Include="Guest.cs" />
-    <Compile Include="Organizer.cs" />
     <Compile Include="Parking.cs" />
     <Compile Include="Parkings.cs" />
     <Compile Include="Person.cs" />
