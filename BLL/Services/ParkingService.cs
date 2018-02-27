@@ -29,9 +29,16 @@ namespace BLL.Services
             //Console.WriteLine(parkings);
             //TODO : Ajouter long lat adresse de depart
             AddDistanceInParkings(latitudeEvent, longitudeEvent);
+            RemoveParkingWhenLess10();
             parkings.ParkingsList = parkings.ParkingsList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
             //TODO : Sort by start point distance
             return parkings.ParkingsList;
+        }
+
+
+        public void RemoveParkingWhenLess10()
+        {
+            foreach (Parking p in parkings.ParkingsList){ if (p.ParkingInfo.FreePlaces < 10) { parkings.ParkingsList.Remove(p); } }
         }
 
         //TODO : Ajouter long lat adresse de depart

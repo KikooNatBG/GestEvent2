@@ -9,6 +9,7 @@ using DAL;
 using BLL.Services;
 using DAL.Repository;
 using System.Web.Helpers;
+using System.Data;
 
 namespace GestEvent.Controllers
 {
@@ -41,62 +42,61 @@ namespace GestEvent.Controllers
         }
 
         [HttpGet]
-        public ActionResult AjouterEvenement(int pID=0)
+        public ActionResult AjouterEvenement(int pID = 0)
         {
-            
+
             AdminViewModels vm = new AdminViewModels();
             vm.Title = "Ajouter un évènement";
             List<Theme> maListe = themeService.FindAll();
-            if (pID!=0) { vm.MonEvent = eventService.Get(pID); vm.Title = "Modification d'un évènement"; vm.IdThemeSelected = vm.MonEvent.Theme.Id;   }
+            if (pID != 0) { vm.MonEvent = eventService.Get(pID); vm.Title = "Modification d'un évènement"; vm.IdThemeSelected = vm.MonEvent.Theme.Id; }
             vm.ListTheme = maListe;
-            
+
             return View(vm);
         }
 
+        [HttpPost]
         public ActionResult AjoutEvent(AdminViewModels pVm)
         {
-            if(pVm.IdThemeSelected != 0) { pVm.MonEvent.Theme = themeService.Get(pVm.IdThemeSelected); }
-            pVm.MonEvent.Images = new List<EventImage>();
+            if (pVm.IdThemeSelected != 0) { pVm.MonEvent.Theme = themeService.Get(pVm.IdThemeSelected); }
+
             if (pVm.MonEvent.Id == 0) { ModelState.Remove("MonEvent.Id"); }
 
-
-
-            //  JL ASSocier les Images a l'event avant l'ajout !
-         /*   HttpFileCollectionBase photos = Request.Files;
-            if (null != photos)
-            {
-                foreach (var photo in photos)
-                {
-                    EventImage image = new EventImage();
-                    image.Name = "nom de l'image";
-                    image.Path = @"Images\" + image.Name;
-                    //photo.save(@"~\" + image.Path);
-                    image.Event = pVm.MonEvent;
-                    //imageService.create(image)
-                    pVm.MonEvent.Images.Add(image);
-                }
-            }
-            */
-
-
-
-
             Event MonEvent = pVm.MonEvent;
-            if (ModelState.IsValid){
+            if (ModelState.IsValid)
+            {
+                HttpFileCollectionBase photos = Request.Files;
+                List<EventImage> images = new List<EventImage>();
+                for (int i = 0; i < photos.Count; i++)
+                {
+                    HttpPostedFileBase photo = photos[i];
+                    if (photo.ContentLength > 0)
+                    {
+                        string path = Server.MapPath("~") + "\\Images\\" + photo.FileName;
+                        photo.SaveAs(path);
+
+                        EventImage image = new EventImage();
+                        image.Name = photo.FileName;
+                        image.Path = "\\Images\\" + photo.FileName;
+                        image.Event = pVm.MonEvent;
+
+                        images.Add(image);
+                    }
+                }
+                pVm.MonEvent.Images = images;
+
                 if (pVm.MonEvent.Id != 0) { eventService.Update(pVm.MonEvent); }
                 else { eventService.Create(pVm.MonEvent); }
-
             }
-            else{
+            else {
                 return RedirectToAction("AjouterEvenement", new { pID = pVm.MonEvent.Id });
-            } 
+            }
             return RedirectToAction("IndexEvenement");
         }
 
         public ActionResult SupprimerEvent(int pID = 0)
         {
             if (pID == 0) { return RedirectToAction("IndexEvenement"); }
-            else {  eventService.Delete(eventService.Get(pID)); }
+            else { eventService.Delete(eventService.Get(pID)); }
             return RedirectToAction("IndexEvenement");
         }
 
@@ -117,7 +117,6 @@ namespace GestEvent.Controllers
 
             return RedirectToAction("IndexThemes");
         }
-
 
         public JsonResult RemplirModal(string pID)
         {
