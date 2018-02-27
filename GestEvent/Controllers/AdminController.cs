@@ -9,6 +9,7 @@ using DAL;
 using BLL.Services;
 using DAL.Repository;
 using System.Web.Helpers;
+using System.Data;
 
 namespace GestEvent.Controllers
 {
@@ -53,28 +54,41 @@ namespace GestEvent.Controllers
             return View(vm);
         }
 
+        //[HttpPost]
         public ActionResult AjoutEvent(AdminViewModels pVm)
         {
-            if(pVm.IdThemeSelected != 0) { pVm.MonEvent.Theme = themeService.Get(pVm.IdThemeSelected); }
+            if (pVm.IdThemeSelected != 0) { pVm.MonEvent.Theme = themeService.Get(pVm.IdThemeSelected); }
             Event MonEvent = pVm.MonEvent;
             if (ModelState.IsValid){
+          
+                //HttpFileCollectionBase photos = Request.Files;
+                //if (null != photos)
+                //{
+                //    List<EventImage> images = new List<EventImage>();
+
+                //    DataTable dt = new DataTable { Columns = { new DataColumn("Path") } };
+                //    for (int i = 0; i < photos.Count; i++)
+                //    {
+                //        HttpPostedFileBase photo = photos[i];
+                //        string path = Server.MapPath("~") + "\\Images\\" + photo.FileName;
+                //        dt.Rows.Add(photo.FileName);
+                //        photo.SaveAs(path);
+
+                //        EventImage image = new EventImage();
+                //        image.Name = photo.FileName;
+                //        image.Path = path;
+                //        image.Event = pVm.MonEvent;
+
+                //        images.Add(image);
+                //    }
+
+                //    pVm.MonEvent.Images = images;
+                //}
+
                 if (pVm.MonEvent.Id != 0) { eventService.Update(pVm.MonEvent); }
                 else { eventService.Create(pVm.MonEvent); }
-                HttpFileCollectionBase photos = Request.Files;
-                if (null != photos)
-                {
-                    foreach (var photo in photos)
-                    {
-                        EventImage image = new EventImage();
-                        image.Name = "nom de l'image";
-                        image.Path = @"Images\" + image.Name;
-                        //photo.save(@"~\" + image.Path);
-                        image.Event = pVm.MonEvent;
-                        //imageService.create(image)
-                    }
-                }
             }
-            else{
+            else {
                 return RedirectToAction("AjouterEvenement", new { pID = pVm.MonEvent.Id });
             } 
             return RedirectToAction("IndexEvenement");
