@@ -1,4 +1,5 @@
 ﻿using BO;
+using System;
 using System.Collections.Generic;
 
 namespace GestEvent.Models
@@ -13,6 +14,9 @@ namespace GestEvent.Models
 
         public Parking Parking { get; set; }
 
+        public List<Double> LatLongAdresseDepartUser { get; set; }
+
+        public string AddresseUser { get; set; }
         public string ViewRubricUrl { get; set; }
 
         public string Rubric { get; set; }
