@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.IO;
 
 namespace BLL.Services
 {
@@ -21,7 +22,8 @@ namespace BLL.Services
 
         }
 
-        public List<Parking> GetNearerParkings(double latitudeEvent, double longitudeEvent, double latitudeStart, double longitudeStart)
+        //TODO : Ajouter long lat adresse de depart
+        public List<Parking> GetNearerParkings(double latitudeEvent,double longitudeEvent)
         {
             var response = new HttpClient().GetStringAsync(_parkUrl).Result;
             //var jsonResponse = await response;
@@ -39,8 +41,8 @@ namespace BLL.Services
         {
             foreach (Parking p in parkings.ParkingsList)
             {
-                p.ParkingInfo.DistanceFromEvent = DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
-                // p.ParkingInfo.DistanceFromStart = DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
+                p.ParkingInfo.DistanceFromEvent = DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0],p.ParkingInfo.Coordinates[1]);
+               // p.ParkingInfo.DistanceFromStart = DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
             }
         }
 
@@ -63,6 +65,7 @@ namespace BLL.Services
         {
             return degrees * Math.PI / 180;
         }
+
 
     }
 }

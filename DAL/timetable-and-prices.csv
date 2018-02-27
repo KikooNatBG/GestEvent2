@@ -1,0 +1,10 @@
+﻿Parking;Horaires;Tarifs;Adresse;Capacité;Seuil_complet
+colombier;24-juil;LES PREMIERES 24h, de 07h à 21h : 0,40€ par 1/4 h (de 0 à 1h) // 0,30€ par 1/4 h (au-delà d'1h) // de 21h à 7h : 0,10€ par 1/4 h. AU-DELA de 24h : 0,50€ / 4h ;40 Place du Colombier;1159;5
+arsenal;"Lu-Je 06:30-22:00;Ve-Di 06:30-06:00";LES PREMIERES 24h, de 07h à 21h : 0,20€ par 1/4 h // de 21h à 7h : 0,10€ par 1/4 h. AU-DELA de 24h : 0,50€ / 4h ;40 Boulevard de la Tour D'Auvergne;605;5
+charles-de-gaulle;Lu-Di 05:00-02:00;LES PREMIERES 24h, de 07h à 21h : 0,40€ par 1/4 h (de 0 à 1h) // 0,30€ par 1/4 h (au-delà d'1h) // de 21h à 7h : 0,10€ par 1/4 h. AU-DELA de 24h : 0,20€ par 1/2 h (de 24h à 7j) // 0,30€ par 1 h ((au-delà de 7j) ;Esplanade Général De Gaulle ;788;15
+lices;"Lu 07:00-0:00;Ma-Ve 07:00-03:00;Sa 06:00-03:00;Di 09:00-21:00";LES PREMIERES 24h, de 07h à 21h : 0,40€ par 1/4 h (de 0 à 1h) // 0,30€ par 1/4 h (au-delà d'1h) // de 21h à 7h : 0,10€ par 1/4 h. AU-DELA de 24h : 0,50€ / 4h ;Place des Lices ;422;10
+dinan-chezy;"Lu-Me 07:00-21:00; Je-Sa 07:00-0:00";LES PREMIERES 24h, de 07h à 21h : 0,30€ par 1/4 h // de 21h à 7h : 0,10€ par 1/4 h. AU-DELA de 24h : 0,50€ / 4h ;Rue du Louis d'or;401;10
+hoche;"Lu 07:30-0:00;Ma-Sa 07:30-02:00";LES PREMIERES 24h, de 07h à 21h : 0,40€ par 1/4 h (de 0 à 1h) // 0,30€ par 1/4 h (au-delà d'1h) // de 21h à 7h : 0,10€ par 1/4 h. AU-DELA de 24h : 0,50€ / 4h ;Place Hoche;777;10
+kleber;Lu-Sa 07:00-20:30;LES PREMIERES 24h, de 07h à 21h : 0,20€ par 1/4 h // de 21h à 7h : 0,10€ par 1/4 h. AU-DELA de 24h : 0,50€ / 4h ;Rue Kléber;383;5
+vilaine;24-juil;LES PREMIERES 24h, de 07h à 21h : 0,50€ par 1/4 h // de 21h à 7h : 0,20€ par 1/4 h. AU-DELA de 24h : 0,20€ par 1/4 h ;Quai Duguay Trouin;252;10
+gare-sud;24-juil;LES PREMIERES 24h, de 07h à 21h : 0,50€ par 1/4 h (de 0 à 2h) // 0,40€ par 1/4 h (de 2 à 4h) // 0,30€ par 1/4 h (au-delà de 4h) // de 21h à 7h : 0,20€ par 1/4 h. AU-DELA de 24h : 0,40€ par 1/2 h ;Rue de Châtillon;420;15
