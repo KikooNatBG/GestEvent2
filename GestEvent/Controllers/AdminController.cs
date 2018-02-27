@@ -76,7 +76,7 @@ namespace GestEvent.Controllers
 
                         EventImage image = new EventImage();
                         image.Name = photo.FileName;
-                        image.Path = path;
+                        image.Path = "\\Images\\" + photo.FileName;
                         image.Event = pVm.MonEvent;
 
                         images.Add(image);
