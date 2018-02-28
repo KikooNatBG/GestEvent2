@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class EventImage
+    public class OpenHour
     {
         public int Id { get; set; }
 
-        public string Name { get; set; }
+        public double StartHour { get; set; }
 
-        public string Path { get; set; }
+        public double EndHour { get; set; }
 
-        public virtual Event Event { get; set; }
+        public int DayNumber { get; set; }
+
+
     }
 }

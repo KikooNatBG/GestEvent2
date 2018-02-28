@@ -1,4 +1,5 @@
-﻿using BLL.Services;
+﻿using BLL.Entities;
+using BLL.Services;
 using BO;
 using DAL;
 using DAL.Repository;
@@ -13,7 +14,7 @@ namespace GestEvent.Controllers
 {
     public class ConviveController : Controller
     {
-        static List<Parking> _lstParking = new List<Parking>();
+        static List<ParkingDTO> _lstParking = new List<ParkingDTO>();
         static List<Event> _lstEvent = new List<Event>();
 
         private Context _context;
@@ -51,7 +52,9 @@ namespace GestEvent.Controllers
             List<Double> LatLongEvent = _eventService.GetGeolocalisation(evenement.Address);
             List<Double> latLongAdressUser = _eventService.GetGeolocalisation(conviveViewModel.AddresseUser);
 
-            List<Parking> lstParking = _parkingService.GetNearerParkings(LatLongEvent[0], LatLongEvent[1], latLongAdressUser[0], latLongAdressUser[1]);
+            List<ParkingDTO> lstParking = _parkingService.GetNearerParkings(lstEvent[0], lstEvent[1], latLongAdressUser[0], latLongAdressUser[1]);
+
+           // List<ParkingDTO> lstParking = _parkingService.GetNearerParkings(MaList[0], MaList[1], LatLongAdressUser[0], LatLongAdressUser[1]);
 
             _lstParking = lstParking;
 
