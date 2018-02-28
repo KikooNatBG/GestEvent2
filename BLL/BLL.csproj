@@ -44,6 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\ParkingDTO.cs" />
+    <Compile Include="Entities\ParkingInfo.cs" />
+    <Compile Include="Entities\Parkings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EventService.cs" />
     <Compile Include="Services\ParkingService.cs" />

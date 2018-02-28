@@ -1,4 +1,5 @@
-﻿using BO;
+﻿using BLL.Entities;
+using BO;
 using System;
 using System.Collections.Generic;
 
@@ -10,9 +11,9 @@ namespace GestEvent.Models
 
         public Event Event { get; set; }
 
-        public List<Parking> LstParkings { get; set; }
+        public List<ParkingDTO> LstParkings { get; set; }
 
-        public Parking Parking { get; set; }
+        public ParkingDTO Parking { get; set; }
 
         public List<Double> LatLongAdresseDepartUser { get; set; }
 
@@ -23,10 +24,10 @@ namespace GestEvent.Models
 
         public ConviveViewModel()
         {
-            LstParkings = new List<Parking>();
+            LstParkings = new List<ParkingDTO>();
             Event = new Event();
             LstEvents = new List<Event>();
-            Parking = new Parking();
+            Parking = new ParkingDTO();
         }
     }
 }
