@@ -48,9 +48,10 @@ namespace GestEvent.Controllers
 
         public ActionResult ResearchParking(ConviveViewModel conviveViewModel)
         {
+            List<Double> lstEvent = _eventService.GetGeolocalisation(conviveViewModel.Event.Address);
+            List<Double> latLongAdressUser = _eventService.GetGeolocalisation(conviveViewModel.AddresseUser);
 
-            List<Double> MaList = _eventService.GetGeolocalisation(conviveViewModel.Event.Address);
-            List<Double> LatLongAdressUser = _eventService.GetGeolocalisation(conviveViewModel.AddresseUser);
+            List<Parking> lstParking = _parkingService.GetNearerParkings(lstEvent[0], lstEvent[1], latLongAdressUser[0], latLongAdressUser[1]);
 
             List<ParkingDTO> lstParking = _parkingService.GetNearerParkings(MaList[0], MaList[1], LatLongAdressUser[0], LatLongAdressUser[1]);
 
@@ -61,13 +62,16 @@ namespace GestEvent.Controllers
             if (_lstParking.Count != 0)
             {
                 conviveVM.Parking = _lstParking[0];
-                conviveVM.LatLongAdresseDepartUser = MaList;
+
+                List<Double> latlongParkingDest = new List<double>();
+                latlongParkingDest.AddRange(_lstParking[0].ParkingInfo.Coordinates);
+                conviveVM.LatlongParkingDest = latlongParkingDest;
+                conviveVM.LatLongAdresseDepartUser = latLongAdressUser;
             }
 
             conviveVM.ViewRubricUrl = "~/Views/Convive/Parking.cshtml";
-          
-            return View("~/Views/Convive/Index.cshtml", conviveVM);
             
+            return View("~/Views/Convive/Index.cshtml", conviveVM);
         }
 
         public ActionResult DisplayRubric(string rubric)
@@ -97,8 +101,13 @@ namespace GestEvent.Controllers
                 {
                     conviveViewModel.Parking = _lstParking[2];
                 }
+
+                List<Double> latlongParkingDest = new List<double>();
+                latlongParkingDest.AddRange(conviveViewModel.Parking.ParkingInfo.Coordinates);
+                conviveViewModel.LatlongParkingDest = latlongParkingDest;
             }
-            return Json(conviveViewModel.Parking, JsonRequestBehavior.AllowGet);
+
+            return Json(conviveViewModel, JsonRequestBehavior.AllowGet);
         }
     }
 }
