@@ -2,8 +2,13 @@
 @{
     ViewBag.Title = "Parking";
 }
-<h3 id="parkingName" style="text-align:center;margin-top:40px">@Model.Parking.ParkingInfo.Name</h3><br /><br />
 
+<h4 id="evenementName" style="text-align:center;margin-top:40px">Evenement : @Model.Event.Name</h4><br />
+
+<p id="evenementAddress" style="text-align:center">Adresse : @Model.Event.Address</p>
+<p id="evenementDuration" style="text-align:center">Durée : @Model.Event.Duration Heure(s)</p>
+
+<h3 id="parkingName" style="text-align:center;margin-top:40px">Parking : @Model.Parking.ParkingInfo.Name</h3><br />
 
 <p id="parkingMaxPlaces" style="text-align:center">Nb place Maximun : @Model.Parking.ParkingInfo.MaxPlaces</p>
 <p id="parkingFreePlaces" style="text-align:center">Nb place libre : @Model.Parking.ParkingInfo.FreePlaces</p>
@@ -14,6 +19,6 @@
     <p class="col-sm-4 col-sm-push-2" style="display:inline-block">Tarif/Heure : 300</p>
 </div><br />
 
-<div class="col-sm-12" style="display:flex;margin-top:50px">
+<div class="col-sm-12" style="display:flex;margin-top:50px;display:none">
     <button class="btn btn-default" id="btnGoToParking" style="margin-left:auto;margin-right:auto;">Aller à cet endroit</button>
 </div>
