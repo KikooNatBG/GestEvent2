@@ -18,6 +18,12 @@ namespace BLL.Entities
 
         public Parking Parking { get; set; }
 
+        public double DistanceFromEvent { get; set; }
+
+        public double DistanceFromStart { get; set; }
+
+        public double CalculatedParkingPrice { get; set; }
+
     }
 
  
