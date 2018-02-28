@@ -47,11 +47,11 @@
   <ItemGroup>
     <Compile Include="Event.cs" />
     <Compile Include="EventImage.cs" />
-    <Compile Include="Guest.cs" />
-    <Compile Include="Organizer.cs" />
+    <Compile Include="OpenHour.cs" />
     <Compile Include="Parking.cs" />
-    <Compile Include="Parkings.cs" />
     <Compile Include="Person.cs" />
+    <Compile Include="Plage.cs" />
+    <Compile Include="Price.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="Theme.cs" />

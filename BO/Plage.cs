@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace BO
 {
-    public class Guest : Person
+    public class Plage
     {
+        public int Id { get; set; }
+
+        public double StartHour { get; set; }
+
+        public double EndHour { get; set; }
+
     }
 }

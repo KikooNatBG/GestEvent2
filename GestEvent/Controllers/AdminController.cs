@@ -57,15 +57,25 @@ namespace GestEvent.Controllers
         [HttpPost]
         public ActionResult AjoutEvent(AdminViewModels pVm)
         {
+            Event MonEvent = pVm.MonEvent;
+
             if (pVm.IdThemeSelected != 0) { pVm.MonEvent.Theme = themeService.Get(pVm.IdThemeSelected); }
 
-            if (pVm.MonEvent.Id == 0) { ModelState.Remove("MonEvent.Id"); }
+            if (MonEvent.Id == 0) { ModelState.Remove("MonEvent.Id"); }
+            else
+            {
+                MonEvent = eventService.Get(MonEvent.Id);
+                MonEvent.Images = eventService.Get(MonEvent.Id).Images;
+            }
 
-            Event MonEvent = pVm.MonEvent;
             if (ModelState.IsValid)
             {
                 HttpFileCollectionBase photos = Request.Files;
-                List<EventImage> images = new List<EventImage>();
+
+                if (pVm.MonEvent.Images == null) {
+                    pVm.MonEvent.Images = new List<EventImage>();
+                }
+                
                 for (int i = 0; i < photos.Count; i++)
                 {
                     HttpPostedFileBase photo = photos[i];
@@ -79,13 +89,12 @@ namespace GestEvent.Controllers
                         image.Path = "\\Images\\" + photo.FileName;
                         image.Event = pVm.MonEvent;
 
-                        images.Add(image);
+                        pVm.MonEvent.Images.Add(image);
                     }
                 }
-                pVm.MonEvent.Images = images;
-
-                if (pVm.MonEvent.Id != 0) { eventService.Update(pVm.MonEvent); }
-                else { eventService.Create(pVm.MonEvent); }
+                
+                if (MonEvent.Id != 0) { eventService.Update(MonEvent); }
+                else { eventService.Create(MonEvent); }
             }
             else {
                 return RedirectToAction("AjouterEvenement", new { pID = pVm.MonEvent.Id });

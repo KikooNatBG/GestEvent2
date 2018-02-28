@@ -14,6 +14,8 @@ namespace DAL
 
         public DbSet<Theme> Themes { get; set; }
 
+        public DbSet<Parking> Parkings { get; set; }
+
         public static Context Create()
         {
             return new Context();
