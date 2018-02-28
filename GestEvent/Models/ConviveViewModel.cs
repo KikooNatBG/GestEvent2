@@ -19,6 +19,8 @@ namespace GestEvent.Models
 
         public List<Double> LatlongParkingDest { get; set; }
 
+        public List<Double> LatLongEvent { get; set; }
+
         public string AddresseUser { get; set; }
         public string ViewRubricUrl { get; set; }
 

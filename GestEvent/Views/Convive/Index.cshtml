@@ -30,13 +30,13 @@
                     <a href="@Url.Action("Index", new { rubric = "Research" })" class="col-sm-6 btn btn-default" style="height:100%;display:flex">
                         <p style="margin:auto">Recherche</p>
                     </a>
-                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingA')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
+                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingA', '@Model.Event.Id')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
                         <p style="margin:auto">A</p>
                     </a>
-                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingB')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
+                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingB', '@Model.Event.Id')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
                         <p style="margin:auto">B</p>
                     </a>
-                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingC')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
+                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingC', '@Model.Event.Id')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
                         <p style="margin:auto">C</p>
                     </a>
                 </div>
@@ -58,14 +58,19 @@
 <script>
     var latAddresseUser = @Html.Raw(Json.Encode(Model?.LatLongAdresseDepartUser));
     var latlongParkingDest = @Html.Raw(Json.Encode(Model?.LatlongParkingDest));
+    var latLongEvent = @Html.Raw(Json.Encode(Model?.LatLongEvent));
+    var nameEvent = @Html.Raw(Json.Encode(Model?.Event.Name));
 
-    function DisplayRubric(urlAction, pRubric) {
+    function DisplayRubric(urlAction, pRubric, idEvent) {
         $.ajax({
             url: urlAction,
             contentType: "application/json",
             dataType: 'JSON',
-            data: { rubric: pRubric },
+            data: { rubric: pRubric, idEvent: idEvent },
             success: function (result) {
+                $("#evenementName").html(result.Event.Name);
+                $("#evenementAddress").html(result.Event.Address);
+                $("#evenementDuration").html(result.Event.Duration + "Heure(s)");
                 $("#parkingName").html(result.Parking.ParkingInfo.Name);
                 $("#parkingMaxPlaces").html("Nb place Maximun : " + result.Parking.ParkingInfo.MaxPlaces);
                 $("#parkingFreePlaces").html("Nb place libre : " + result.Parking.ParkingInfo.FreePlaces);
@@ -92,8 +97,13 @@
                 center: rennes
             };
 
-
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+            var marker = new google.maps.Marker({
+                position: {lat: latLongEvent[0], lng: latLongEvent[1]},
+                map: map,
+                title: nameEvent
+            });
 
             directionsDisplay.setMap(map);
             google.maps.event.addDomListener(document.getElementById('btnGoToParking'), 'click', calcRoute);
