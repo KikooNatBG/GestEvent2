@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using BLL.Entities;
 
 namespace BLL.Services
 {
@@ -21,7 +22,7 @@ namespace BLL.Services
 
         }
 
-        public List<Parking> GetNearerParkings(double latitudeEvent, double longitudeEvent, double latitudeStart, double longitudeStart)
+        public List<ParkingDTO> GetNearerParkings(double latitudeEvent, double longitudeEvent, double latitudeStart, double longitudeStart)
         {
             var response = new HttpClient().GetStringAsync(_parkUrl).Result;
             //var jsonResponse = await response;
@@ -29,15 +30,22 @@ namespace BLL.Services
             //Console.WriteLine(parkings);
             //TODO : Ajouter long lat adresse de depart
             AddDistanceInParkings(latitudeEvent, longitudeEvent);
-            parkings.ParkingsList = parkings.ParkingsList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
+            RemoveParkingWhenLess10();
+            parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
             //TODO : Sort by start point distance
-            return parkings.ParkingsList;
+            return parkings.ParkingList;
+        }
+
+
+        public void RemoveParkingWhenLess10()
+        {
+            foreach (ParkingDTO p in parkings.ParkingList){ if (p.ParkingInfo.FreePlaces < 10) { parkings.ParkingList.Remove(p); } }
         }
 
         //TODO : Ajouter long lat adresse de depart
         public void AddDistanceInParkings(double latitudeEvent, double longitudeEvent)
         {
-            foreach (Parking p in parkings.ParkingsList)
+            foreach (ParkingDTO p in parkings.ParkingList)
             {
                 p.ParkingInfo.DistanceFromEvent = DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
                 // p.ParkingInfo.DistanceFromStart = DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
@@ -64,5 +72,20 @@ namespace BLL.Services
             return degrees * Math.PI / 180;
         }
 
+    }
+    
+    partial class Parking
+    {
+        public int Id { get; set; }
+
+        public bool isAlwaysOpen { get; set; }
+
+        public double DistanceFromEvent { get; set; }
+
+        public double DistanceFromStart { get; set; }
+
+        public double HourPriceDay { get; set; }
+
+        public double HourPriceNight { get; set; }
     }
 }
