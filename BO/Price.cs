@@ -11,15 +11,15 @@ namespace BO
         public int Id { get; set; }
         public double Tarif { get; set; }
 
-        public double Tarif01h { get; set; }
+        public double? Tarif01h { get; set; }
 
-        public double Tarif12h { get; set; }
+        public double? Tarif12h { get; set; }
 
-        public double Tarif23h { get; set; }
+        public double? Tarif23h { get; set; }
 
-        public double Tarif34h { get; set; }
+        public double? Tarif34h { get; set; }
 
-        public double Tarif4Plus { get; set; }
+        public double? Tarif4Plus { get; set; }
 
         public Plage Plage { get; set; }
 
