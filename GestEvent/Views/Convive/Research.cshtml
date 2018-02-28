@@ -10,17 +10,17 @@
         </div>
     }<br />
 
-    <div class="form-group" style="text-align:center">
-        <h3>Evenement</h3><br />
-        @Html.DropDownListFor(m => Model.Event.Address, new SelectList(Model.LstEvents, "Address", "Name"),
+        <div class="form-group" style="text-align:center">
+            <h3>Evenement</h3><br />
+            @Html.DropDownListFor(m => Model.Event.Id, new SelectList(Model.LstEvents, "Id", "Name"),
                  new { @class = "form-control", @style = "margin:auto;" })
-    </div><br />
-    <div class="form-group" style="text-align:center">
-        <h3>Adresse de départ</h3><br />
-        @Html.TextBoxFor(m => Model.AddresseUser, new { @class = "form-control", @style = "margin:auto;" })
-    </div><br />
+        </div><br />
+        <div class="form-group" style="text-align:center">
+            <h3>Adresse de départ</h3><br />
+            @Html.TextBoxFor(m => Model.AddresseUser, new { @class = "form-control", @style = "margin:auto;" })
+        </div><br />
 
-    <div class="row" style="text-align:center">
-        <input type="submit" class="btn btn-default" style="border-radius:6px;width:140px;height:35px;text-align:center" />
-    </div>
+        <div class="row" style="text-align:center">
+            <input type="submit" class="btn btn-default" style="border-radius:6px;width:140px;height:35px;text-align:center" />
+        </div>
 }
