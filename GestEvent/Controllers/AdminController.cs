@@ -24,7 +24,7 @@ namespace GestEvent.Controllers
         public AdminController()
         {
             this.context = new Context();
-            eventService = new EventService(new EventRepository(context));
+            eventService = new EventService(new EventRepository(context), new ImageRepository(context));
             themeService = new ThemeService(new ThemeRepository(context));
             imageService = new ImageService(new ImageRepository(context));
         }
