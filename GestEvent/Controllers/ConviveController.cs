@@ -25,7 +25,7 @@ namespace GestEvent.Controllers
         {
             _context = new Context();
             _eventService = new EventService(new EventRepository(_context));
-            _parkingService = new ParkingService();
+            _parkingService = new ParkingService(new ParkingRepository(_context));
         }
 
         // GET: Convive
