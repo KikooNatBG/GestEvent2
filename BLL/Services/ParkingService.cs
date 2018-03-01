@@ -13,7 +13,7 @@ namespace BLL.Services
 {
     public class ParkingService
     {
-        static string _parkUrl = "https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=export-api-parking-citedia";
+        static string _parkUrl = "http://data.citedia.com/r1/parks/";
 
         private Parkings parkings = new Parkings();
 
@@ -33,6 +33,9 @@ namespace BLL.Services
 
         public List<ParkingDTO> GetNearerParkings(double latitudeEvent, double longitudeEvent, double latitudeStart, double longitudeStart,Event e)
         {
+
+            callParkingAPI();
+
             //TODO : Get db parkings for each parking
             foreach (var parking in parkings.ParkingList)
             {
@@ -41,6 +44,7 @@ namespace BLL.Services
 
             AddDistanceInParkings(latitudeEvent, longitudeEvent,latitudeStart,longitudeStart);
             RemoveParkingWhenLess10();
+
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromStart).ToList();
 
