@@ -24,7 +24,7 @@ namespace GestEvent.Controllers
         public AdminController()
         {
             this.context = new Context();
-            eventService = new EventService(new EventRepository(context));
+            eventService = new EventService(new EventRepository(context), new ImageRepository(context));
             themeService = new ThemeService(new ThemeRepository(context));
             imageService = new ImageService(new ImageRepository(context));
         }
@@ -60,15 +60,9 @@ namespace GestEvent.Controllers
         public ActionResult AjoutEvent(AdminViewModels pVm)
         {
             Event MonEvent = pVm.MonEvent;
-
             if (pVm.IdThemeSelected != 0) { pVm.MonEvent.Theme = themeService.Get(pVm.IdThemeSelected); }
-
             if (MonEvent.Id == 0) { ModelState.Remove("MonEvent.Id"); }
-            else
-            {
-                MonEvent = eventService.Get(MonEvent.Id);
-            }
-
+            else{ MonEvent = eventService.Get(MonEvent.Id);}
             if (ModelState.IsValid)
             {
                 HttpFileCollectionBase photos = Request.Files;

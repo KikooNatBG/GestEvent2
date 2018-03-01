@@ -5,16 +5,25 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Xml.Linq;
+using System.IO;
 
 namespace BLL.Services
 {
     public class EventService
     {
         private readonly EventRepository _eventRepository;
+        private readonly ImageRepository _imageRepository;
 
-        public EventService(EventRepository eventRepository)
+        public EventService(EventRepository eventRepository, ImageRepository imageRepository )
         {
             this._eventRepository = eventRepository;
+            this._imageRepository = imageRepository;
+        }
+
+        public EventService(EventRepository eventRepository, ImageRepository imageRepository)
+        {
+            this._eventRepository = eventRepository;
+            this._imageRepository = imageRepository;
         }
 
         public List<Event> FindAll()
@@ -44,7 +53,24 @@ namespace BLL.Services
 
         public void Delete(Event obj)
         {
+            if (null != obj.Images)
+            {
+                for (int i = obj.Images.Count - 1; i >= 0; i--)
+                {
+                    EventImage image = _imageRepository.Get(obj.Images[i].Id);
+                    _imageRepository.Delete(image);
+
+                    if (File.Exists(image.Path))
+                    {
+                        File.Delete(image.Path);
+                    }
+                }
+
+                obj.Images.Clear();
+            }
+
             _eventRepository.Delete(obj);
+
         }
 
         public List<Double> GetGeolocalisation(string address)

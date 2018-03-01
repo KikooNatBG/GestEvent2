@@ -14,6 +14,6 @@ namespace BO
 
         public string Path { get; set; }
 
-        public virtual Event Event { get; set; }
+    
     }
 }

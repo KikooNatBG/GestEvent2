@@ -24,7 +24,7 @@ namespace GestEvent.Controllers
         public ConviveController()
         {
             _context = new Context();
-            _eventService = new EventService(new EventRepository(_context));
+            _eventService = new EventService(new EventRepository(_context), new ImageRepository(_context));
             _parkingService = new ParkingService(new ParkingRepository(_context));
         }
 
