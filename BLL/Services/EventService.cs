@@ -20,12 +20,6 @@ namespace BLL.Services
             this._imageRepository = imageRepository;
         }
 
-        public EventService(EventRepository eventRepository, ImageRepository imageRepository)
-        {
-            this._eventRepository = eventRepository;
-            this._imageRepository = imageRepository;
-        }
-
         public List<Event> FindAll()
         {
             return _eventRepository.FindAll();
