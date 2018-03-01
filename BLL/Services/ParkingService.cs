@@ -45,10 +45,12 @@ namespace BLL.Services
             AddDistanceInParkings(latitudeEvent, longitudeEvent,latitudeStart,longitudeStart);
             RemoveParkingWhenLess10();
 
+
+            calculatePriceForEvent(e);
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromStart).ToList();
 
-            calculatePriceForEvent(e);
+            
 
             return parkings.ParkingList;
         }
