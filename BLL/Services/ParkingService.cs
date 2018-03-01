@@ -38,16 +38,13 @@ namespace BLL.Services
             {
                 parking.Parking = _parkingRepository.GetByName(parking.ParkingInfo.Name);
             }
-            
-            
-
 
             AddDistanceInParkings(latitudeEvent, longitudeEvent,latitudeStart,longitudeStart);
             RemoveParkingWhenLess10();
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromStart).ToList();
 
-            //calculatePriceForEvent(e);
+            calculatePriceForEvent(e);
 
             return parkings.ParkingList;
         }
@@ -77,7 +74,7 @@ namespace BLL.Services
             }
         }
 
-        public double calculatePriceForEvent(Event e)
+        public void calculatePriceForEvent(Event e)
         {
             var eventDay =  (int)e.Date.DayOfWeek;
             var eventStartTime = e.Date.TimeOfDay;
@@ -85,20 +82,29 @@ namespace BLL.Services
             var eventDurationTime = TimeSpan.FromHours(e.Duration);
             var eventEndTime = eventStartTime.Add(eventDurationTime);
 
-            
             foreach (var p in parkings.ParkingList)
             {
                 var parkOpenTime = p.Parking.OpenHours.Where(h => h.DayNumber == eventDay).Select(h => h.StartHour.TimeOfDay).First();
                 var parkCloseTime = p.Parking.OpenHours.Where(h => h.DayNumber == eventDay).Select(h => h.EndHour.TimeOfDay).First();
+                
 
-
-                if(parkOpenTime < eventStartTime && parkCloseTime > eventEndTime)
+                if (parkOpenTime < eventStartTime && parkCloseTime > eventEndTime)
                 {
                     // TODO : Get parking plage
-                    // TODO : Get duration passed in parking
-                    // TODO : Get price for plage 
-                    // TODO : calculate price for each parking
-                   
+                    if (eventStartTime > TimeSpan.FromHours(7) && eventEndTime < TimeSpan.FromHours(21))
+                    {
+                        var parkingPrice = p.Parking.Prices.Where(price => price.Plage.StartHour.Hour == TimeSpan.FromHours(7).Hours).First();
+
+                        p.CalculatedParkingPrice = getParkingPrice(parkingPrice, eventDurationTime);
+
+
+                    }
+                    else {
+                        var parkingPrice = p.Parking.Prices.Where(price => price.Plage.StartHour.Hour == TimeSpan.FromHours(21).Hours).First();
+
+                        p.CalculatedParkingPrice = getParkingPrice(parkingPrice, eventDurationTime);
+                    }
+
                 }
                 else
                 {
@@ -106,6 +112,57 @@ namespace BLL.Services
                 }
             }
 
+        }
+
+        public double getParkingPrice(Price parkingPrice, TimeSpan eventDurationTime)
+        {
+            if (parkingPrice.Tarif01h == null)
+            {
+                return eventDurationTime.Hours * parkingPrice.Tarif;
+            }
+            else
+            {
+                if (eventDurationTime.Hours < 1)
+                {
+                    if (parkingPrice.Tarif01h.HasValue) {
+                        return eventDurationTime.Hours * parkingPrice.Tarif01h.Value;
+                    }
+                }
+
+                if (eventDurationTime.Hours > 1 && eventDurationTime.Hours < 2)
+                {
+                    if (parkingPrice.Tarif01h.HasValue && parkingPrice.Tarif12h.HasValue)
+                    {
+                        return parkingPrice.Tarif01h.Value + (eventDurationTime.Hours - TimeSpan.FromHours(1).Hours) * parkingPrice.Tarif12h.Value;
+                    }
+                }
+
+                if (eventDurationTime.Hours > 2 && eventDurationTime.Hours < 3)
+                {
+
+                    if (parkingPrice.Tarif01h.HasValue && parkingPrice.Tarif12h.HasValue)
+                    {
+                        return parkingPrice.Tarif01h.Value + parkingPrice.Tarif12h.Value + (eventDurationTime.Hours - TimeSpan.FromHours(2).Hours) * parkingPrice.Tarif23h.Value;
+                    }
+          
+                }
+
+                if (eventDurationTime.Hours > 3 && eventDurationTime.Hours < 4)
+                {
+                    if (parkingPrice.Tarif01h.HasValue && parkingPrice.Tarif12h.HasValue)
+                    {
+                        return parkingPrice.Tarif01h.Value + parkingPrice.Tarif12h.Value + parkingPrice.Tarif23h.Value + (eventDurationTime.Hours - TimeSpan.FromHours(3).Hours) * parkingPrice.Tarif34h.Value;
+                    }
+                }
+                
+                if(eventDurationTime.Hours > 4)
+                {
+                    if (parkingPrice.Tarif01h.HasValue && parkingPrice.Tarif12h.HasValue)
+                    {
+                        return parkingPrice.Tarif01h.Value + parkingPrice.Tarif12h.Value + parkingPrice.Tarif23h.Value + parkingPrice.Tarif34h.Value + (eventDurationTime.Hours - TimeSpan.FromHours(4).Hours) * parkingPrice.Tarif4Plus.Value;
+                    }
+                }
+            }
             return 0;
         }
 
