@@ -16,7 +16,7 @@ namespace DAL.Repository
 
         public Parking GetByName(string Name)
         {
-            return this.Context.Parkings.Where(p => p.Name == Name).First();
+            return this.Context.Parkings.Where(p => p.Name == Name).FirstOrDefault();
         }
     }
 }

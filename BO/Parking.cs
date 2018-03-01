@@ -15,8 +15,8 @@ namespace BO
 
         public bool IsAlwaysOpen { get; set; }
 
-        public List<OpenHour> OpenHours { get; set; }
+        public virtual List<OpenHour> OpenHours { get; set; }
 
-        public List<Price> Prices { get; set; }
+        public virtual List<Price> Prices { get; set; }
     }
 }
