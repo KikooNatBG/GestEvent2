@@ -49,7 +49,7 @@ namespace BLL.Services
 
         public List<Double> GetGeolocalisation(string address)
         {
-            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0},Rennes,France&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
+            string requestUri = string.Format("https://maps.googleapis.com/maps/api/geocode/xml?address={0},France&key=AIzaSyBWueE2eJriSCMWTWlokZhu39wkf_4lbME", Uri.EscapeDataString(address));
             List<Double> LatLon = new List<double>();
             
             WebRequest request = WebRequest.Create(requestUri);
