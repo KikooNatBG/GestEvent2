@@ -30,22 +30,21 @@
                     <a href="@Url.Action("Index", new { rubric = "Research" })" class="col-sm-6 btn btn-default" style="height:100%;display:flex">
                         <p style="margin:auto">Recherche</p>
                     </a>
-                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingA', '@Model.Event.Id')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
+                    <a id="ParkingA" onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingA', '@Model.Event.Id', this)" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
                         <p style="margin:auto">A</p>
                     </a>
-                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingB', '@Model.Event.Id')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
+                    <a id="ParkingB" onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingB', '@Model.Event.Id', this)" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
                         <p style="margin:auto">B</p>
                     </a>
-                    <a onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingC', '@Model.Event.Id')" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
+                    <a id="ParkingC" onclick="DisplayRubric('@Url.Action("DisplayRubric")', 'ParkingC', '@Model.Event.Id', this)" class="col-sm-2 btn btn-default btnOnglet" style="height:100%;display:flex">
                         <p style="margin:auto">C</p>
                     </a>
                 </div>
                 @section Scripts{
-            <script>
-                                                                                                   
-            </script>                                          
-                    }
+                    <script>
 
+                    </script>
+                }
             }
 
             @Html.Partial(Model.ViewRubricUrl, Model)
@@ -61,7 +60,20 @@
     var latLongEvent = @Html.Raw(Json.Encode(Model?.LatLongEvent));
     var nameEvent = @Html.Raw(Json.Encode(Model?.Event.Name));
 
-    function DisplayRubric(urlAction, pRubric, idEvent) {
+    var oldIdOnglet;
+
+    function DisplayRubric(urlAction, pRubric, idEvent, idOnglet) {
+        $(idOnglet).css("background-color", "rgba(204,204,204,0.67)");
+
+        if(oldIdOnglet != null)
+        {
+            oldIdOnglet.css("background-color", "white");
+        }
+
+        oldIdOnglet = $(idOnglet);
+
+
+
         $.ajax({
             url: urlAction,
             contentType: "application/json",
@@ -135,7 +147,7 @@
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
-       
+
     }
     mapLocation();
 

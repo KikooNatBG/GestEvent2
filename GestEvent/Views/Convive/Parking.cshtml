@@ -3,10 +3,10 @@
     ViewBag.Title = "Parking";
 }
 
-<h4 id="evenementName" style="text-align:center;margin-top:40px">Evenement : @Model.Event.Name</h4><br />
+<h4 id="evenementName" style="text-align:center;margin-top:40px">@Model.Event.Name</h4><br />
 
-<p id="evenementAddress" style="text-align:center">Adresse : @Model.Event.Address</p>
-<p id="evenementDuration" style="text-align:center">Durée : @Model.Event.Duration Heure(s)</p>
+<p id="evenementAddress" style="text-align:center">@Model.Event.Address</p>
+<p id="evenementDuration" style="text-align:center">@Model.Event.Duration Heure(s)</p>
 
 <h3 id="parkingName" style="text-align:center;margin-top:40px">Parking : @Model.Parking.ParkingInfo.Name</h3><br />
 

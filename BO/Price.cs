@@ -21,7 +21,7 @@ namespace BO
 
         public double? Tarif4Plus { get; set; }
 
-        public Plage Plage { get; set; }
+        public virtual Plage Plage { get; set; }
 
     }
 }
