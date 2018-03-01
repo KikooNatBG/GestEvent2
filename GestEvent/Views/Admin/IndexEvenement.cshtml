@@ -20,7 +20,7 @@
                         <th> Thème </th>
                         <th> Lieu</th>
                         <th> Date et Heure</th>
-                        <th> Descriptif</th>
+                        <th> Nom</th>
                         <th style="width: 8%;"> Durée (h) </th>
                         <th style="text-align: center;">Actions</th>
                     </tr>
@@ -39,9 +39,9 @@
                                     <label>Pas de thème</label>
                                 }
                             </td>
-                            <td>@e.Address</td>
+                            <td>@e.PlaceName</td>
                             <td>@e.Date</td>
-                            <td>@e.Description</td>
+                            <td>@e.Name</td>
                             <td>@e.Duration</td>
                             <td style="width: 10%">
                                 @if (e.Date >= DateTime.Now)

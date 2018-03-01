@@ -82,12 +82,13 @@ namespace GestEvent.Controllers
                     HttpPostedFileBase photo = photos[i];
                     if (photo.ContentLength > 0)
                     {
-                        string path = Server.MapPath("~") + "\\Images\\" + photo.FileName;
+                        string name = MonEvent.Name + "_" + photo.FileName;
+                        string path = Server.MapPath("~") + "\\Images\\" + name;
                         photo.SaveAs(path);
 
                         EventImage image = new EventImage();
-                        image.Name = photo.FileName;
-                        image.Path = "\\Images\\" + photo.FileName;
+                        image.Name = name;
+                        image.Path = "\\Images\\" + name;
 
                         MonEvent.Images.Add(image);
                     }
