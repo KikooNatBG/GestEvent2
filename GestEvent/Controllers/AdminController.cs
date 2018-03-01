@@ -146,14 +146,14 @@ namespace GestEvent.Controllers
             //supprimer l'image de l'évènement
             monEvent.Images.Remove(image);
 
-            //supprimer l'image du projet
-            imageService.deleteImageFromProject(image);
-
             //mettre à jour l'évènement en bdd
             eventService.Update(monEvent);
 
+            //supprimer l'image
+            imageService.Delete(image);
+
             //retourner sur la modif de l'évènement
-            return RedirectToAction("AjouterEvenement", monEventId);
+            return RedirectToAction("AjouterEvenement", new { pID = monEventId });
         }
     }
 }

@@ -24,12 +24,14 @@ namespace BLL.Services
             return _imageRepository.Get(id);
         }
 
-        public void deleteImageFromProject(EventImage image)
+        public void Delete(EventImage image)
         {
             if (File.Exists(image.Path))
             {
                 File.Delete(image.Path);
             }
+
+            _imageRepository.Delete(image);
         }
     }
 }
