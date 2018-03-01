@@ -14,9 +14,10 @@ namespace BLL.Services
         private readonly EventRepository _eventRepository;
         private readonly ImageRepository _imageRepository;
 
-        public EventService(EventRepository eventRepository)
+        public EventService(EventRepository eventRepository, ImageRepository imageRepository )
         {
             this._eventRepository = eventRepository;
+            this._imageRepository = imageRepository;
         }
 
         public EventService(EventRepository eventRepository, ImageRepository imageRepository)
@@ -69,6 +70,7 @@ namespace BLL.Services
             }
 
             _eventRepository.Delete(obj);
+
         }
 
         public List<Double> GetGeolocalisation(string address)
