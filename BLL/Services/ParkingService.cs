@@ -13,7 +13,7 @@ namespace BLL.Services
 {
     public class ParkingService
     {
-        static string _parkUrl = "http://data.citedia.com/r1/parks/";
+        static string _parkUrl = "https://data.rennesmetropole.fr/api/records/1.0/search/?dataset=export-api-parking-citedia";
 
         private Parkings parkings = new Parkings();
 
@@ -39,7 +39,7 @@ namespace BLL.Services
             //TODO : Get db parkings for each parking
             foreach (var parking in parkings.ParkingList)
             {
-                parking.Parking = _parkingRepository.GetByName(parking.ParkingInfo.Name);
+                parking.Parking = _parkingRepository.GetByName(parking.ParkingInfo.Name.ToLower());
             }
 
             AddDistanceInParkings(latitudeEvent, longitudeEvent,latitudeStart,longitudeStart);
@@ -73,8 +73,8 @@ namespace BLL.Services
         {
             foreach (ParkingDTO p in parkings.ParkingList)
             {
-                p.ParkingInfo.DistanceFromEvent = DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
-                p.ParkingInfo.DistanceFromStart = DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
+                p.DistanceFromEvent = DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
+                p.DistanceFromStart = DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
             }
         }
 
@@ -86,41 +86,61 @@ namespace BLL.Services
             var eventDurationTime = TimeSpan.FromHours(e.Duration);
             var eventEndTime = eventStartTime.Add(eventDurationTime);
 
-            foreach (var p in parkings.ParkingList)
+            for (int i = parkings.ParkingList.Count -1; i>=0; i--)
             {
-                var parkOpenTime = p.Parking.OpenHours.Where(h => h.DayNumber == eventDay).Select(h => h.StartHour.TimeOfDay).First();
-                var parkCloseTime = p.Parking.OpenHours.Where(h => h.DayNumber == eventDay).Select(h => h.EndHour.TimeOfDay).First();
-                
-
-                if (parkOpenTime < eventStartTime && parkCloseTime > eventEndTime)
+                if(parkings.ParkingList[i].Parking.OpenHours.Count > 0)
                 {
-                    // TODO : Get parking plage
+                    var parkOpenTime = parkings.ParkingList[i].Parking.OpenHours.Where(h => h.DayNumber == eventDay).Select(h => h.StartHour.TimeOfDay).FirstOrDefault();
+                    var parkCloseTime = parkings.ParkingList[i].Parking.OpenHours.Where(h => h.DayNumber == eventDay).Select(h => h.EndHour.TimeOfDay).FirstOrDefault();
+
+
+                    if (parkOpenTime < eventStartTime && parkCloseTime > eventEndTime)
+                    {
+                        // TODO : Get parking plage
+                        if (eventStartTime > TimeSpan.FromHours(7) && eventEndTime < TimeSpan.FromHours(21))
+                        {
+                            var parkingPrice = parkings.ParkingList[i].Parking.Prices.Where(price => price.Plage.StartHour.Hour == TimeSpan.FromHours(7).Hours).FirstOrDefault();
+
+                            parkings.ParkingList[i].CalculatedParkingPrice = getParkingPrice(parkingPrice, eventDurationTime);
+
+
+                        }
+                        else {
+                            var parkingPrice = parkings.ParkingList[i].Parking.Prices.Where(price => price.Plage.StartHour.Hour == TimeSpan.FromHours(21).Hours).FirstOrDefault();
+
+                            parkings.ParkingList[i].CalculatedParkingPrice = getParkingPrice(parkingPrice, eventDurationTime);
+                        }
+
+                    }
+                    else
+                    {
+                        parkings.ParkingList.RemoveAt(i);
+                    }
+                } else
+                {
+
                     if (eventStartTime > TimeSpan.FromHours(7) && eventEndTime < TimeSpan.FromHours(21))
                     {
-                        var parkingPrice = p.Parking.Prices.Where(price => price.Plage.StartHour.Hour == TimeSpan.FromHours(7).Hours).First();
+                        var parkingPrice = parkings.ParkingList[i].Parking.Prices.Where(price => price.Plage.StartHour.Hour == TimeSpan.FromHours(7).Hours).FirstOrDefault();
 
-                        p.CalculatedParkingPrice = getParkingPrice(parkingPrice, eventDurationTime);
+                        parkings.ParkingList[i].CalculatedParkingPrice = getParkingPrice(parkingPrice, eventDurationTime);
 
 
                     }
                     else {
-                        var parkingPrice = p.Parking.Prices.Where(price => price.Plage.StartHour.Hour == TimeSpan.FromHours(21).Hours).First();
+                        var parkingPrice = parkings.ParkingList[i].Parking.Prices.Where(price => price.Plage.StartHour.Hour == TimeSpan.FromHours(21).Hours).FirstOrDefault();
 
-                        p.CalculatedParkingPrice = getParkingPrice(parkingPrice, eventDurationTime);
+                        parkings.ParkingList[i].CalculatedParkingPrice = getParkingPrice(parkingPrice, eventDurationTime);
                     }
-
                 }
-                else
-                {
-                    parkings.ParkingList.Remove(p);
-                }
+               
             }
 
         }
 
         public double getParkingPrice(Price parkingPrice, TimeSpan eventDurationTime)
         {
-            if (parkingPrice.Tarif01h == null)
+            if (!parkingPrice.Tarif01h.HasValue || parkingPrice.Tarif01h == null)
             {
                 return eventDurationTime.Hours * parkingPrice.Tarif;
             }
@@ -167,6 +187,7 @@ namespace BLL.Services
                     }
                 }
             }
+    
             return 0;
         }
 
