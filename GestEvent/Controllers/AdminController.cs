@@ -19,12 +19,14 @@ namespace GestEvent.Controllers
         private Context context;
         private EventService eventService;
         private ThemeService themeService;
+        private ImageService imageService;
 
         public AdminController()
         {
             this.context = new Context();
             eventService = new EventService(new EventRepository(context));
             themeService = new ThemeService(new ThemeRepository(context));
+            imageService = new ImageService(new ImageRepository(context));
         }
 
         // GET: Admin
@@ -65,15 +67,14 @@ namespace GestEvent.Controllers
             else
             {
                 MonEvent = eventService.Get(MonEvent.Id);
-                MonEvent.Images = eventService.Get(MonEvent.Id).Images;
             }
 
             if (ModelState.IsValid)
             {
                 HttpFileCollectionBase photos = Request.Files;
 
-                if (pVm.MonEvent.Images == null) {
-                    pVm.MonEvent.Images = new List<EventImage>();
+                if (MonEvent.Images == null) {
+                    MonEvent.Images = new List<EventImage>();
                 }
                 
                 for (int i = 0; i < photos.Count; i++)
@@ -87,9 +88,8 @@ namespace GestEvent.Controllers
                         EventImage image = new EventImage();
                         image.Name = photo.FileName;
                         image.Path = "\\Images\\" + photo.FileName;
-                        image.Event = pVm.MonEvent;
 
-                        pVm.MonEvent.Images.Add(image);
+                        MonEvent.Images.Add(image);
                     }
                 }
                 
@@ -132,6 +132,27 @@ namespace GestEvent.Controllers
             int ID = Convert.ToInt32(pID);
             List<Event> MaListe = eventService.GetEventByIDTheme(ID);
             return Json(MaListe);
+        }
+
+        public ActionResult ImageDelete(int imageId, int monEventId)
+        {
+            //récupérer l'image par son id
+            EventImage image = imageService.Get(imageId);
+
+            //récupérer l'évènement
+            Event monEvent = eventService.Get(monEventId);
+
+            //supprimer l'image de l'évènement
+            monEvent.Images.Remove(image);
+
+            //supprimer l'image du projet
+            imageService.deleteImageFromProject(image);
+
+            //mettre à jour l'évènement en bdd
+            eventService.Update(monEvent);
+
+            //retourner sur la modif de l'évènement
+            return RedirectToAction("AjouterEvenement", monEventId);
         }
     }
 }

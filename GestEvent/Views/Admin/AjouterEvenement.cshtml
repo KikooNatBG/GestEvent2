@@ -88,6 +88,7 @@
                         foreach(var image in Model.MonEvent.Images)
                         {
                            <img src="@image.Path" alt="@image.Name"/>
+                            @Html.ActionLink("Supprimer", "ImageDelete", "Admin", new { imageId = image.Id, monEventId = Model.MonEvent.Id }, new { @class = "btn btn-danger" })
                         }
                     }
                 </div>
