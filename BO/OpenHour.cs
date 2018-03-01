@@ -10,9 +10,9 @@ namespace BO
     {
         public int Id { get; set; }
 
-        public double StartHour { get; set; }
+        public DateTime StartHour { get; set; }
 
-        public double EndHour { get; set; }
+        public DateTime EndHour { get; set; }
 
         public int DayNumber { get; set; }
 

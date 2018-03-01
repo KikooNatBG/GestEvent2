@@ -3,7 +3,6 @@
 
     Layout = "~/Views/Shared/AdminLayout.cshtml";
     ViewBag.Title = "IndexEvenement";
-    var imagePath = "";
 }
 
 <div class="container-fluid">
@@ -88,7 +87,8 @@
                     {
                         foreach(var image in Model.MonEvent.Images)
                         {
-                           <img src="@image.Path" alt="@image.Name" width="300px" />
+                           <img src="@image.Path" alt="@image.Name"/>
+                            @Html.ActionLink("Supprimer", "ImageDelete", "Admin", new { imageId = image.Id, monEventId = Model.MonEvent.Id }, new { @class = "btn btn-danger" })
                         }
                     }
                 </div>
