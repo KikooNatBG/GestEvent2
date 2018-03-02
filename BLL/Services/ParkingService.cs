@@ -137,7 +137,7 @@ namespace BLL.Services
             double calculatedParkingPrice = 0;
             if (!parkingPrice.Tarif01h.HasValue || parkingPrice.Tarif01h == null)
             {
-                return eventDurationTime.Hours * parkingPrice.Tarif;
+                calculatedParkingPrice = calculatedParkingPrice + eventDurationTime.Hours * parkingPrice.Tarif + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif;
             }
             else
             {
