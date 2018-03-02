@@ -204,6 +204,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803021039194_fourteen.cs" />
+    <Compile Include="Migrations\201803021039194_fourteen.Designer.cs">
+      <DependentUpon>201803021039194_fourteen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModels.cs" />
@@ -480,6 +484,11 @@
       <Project>{eed2e357-9ebc-47df-9d71-e1b11dd39a5a}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201803021039194_fourteen.resx">
+      <DependentUpon>201803021039194_fourteen.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
