@@ -13,6 +13,7 @@ using System.Data;
 
 namespace GestEvent.Controllers
 {
+    [Authorize(Roles = Role.ADMINISTRATEUR)]
     public class AdminController : Controller
     {
         // NATHAN LA GROSSE PUTE
