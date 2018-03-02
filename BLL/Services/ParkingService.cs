@@ -50,7 +50,6 @@ namespace BLL.Services
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromStart).ToList();
 
-            
 
             return parkings.ParkingList;
         }
@@ -60,14 +59,7 @@ namespace BLL.Services
         {
             foreach (ParkingDTO p in parkings.ParkingList){ if (p.ParkingInfo.FreePlaces < 10) { parkings.ParkingList.Remove(p); } }
         }
-        public void RemoveParkingByParkingDisponibility(Event e)
-        {
-            foreach (ParkingDTO p in parkings.ParkingList) {
-                if (!p.Parking.IsAlwaysOpen) {
-                    parkings.ParkingList.Remove(p);
-                }
-            }
-        }
+        
 
 
         //TODO : Ajouter long lat adresse de depart
