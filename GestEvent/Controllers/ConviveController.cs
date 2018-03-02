@@ -52,9 +52,7 @@ namespace GestEvent.Controllers
             Event evenement = _eventService.Get(conviveViewModel.Event.Id);
             List<Double> LatLongEvent = _eventService.GetGeolocalisation(evenement.Address);
             List<Double> latLongAdressUser = _eventService.GetGeolocalisation(conviveViewModel.AddresseUser);
-
-            EventImage eventImage = _imageService.Get(evenement.Id);
-
+            
             List<ParkingDTO> lstParking = _parkingService.GetNearerParkings(LatLongEvent[0], LatLongEvent[1], latLongAdressUser[0], latLongAdressUser[1],evenement);
             
             _lstParking = lstParking;

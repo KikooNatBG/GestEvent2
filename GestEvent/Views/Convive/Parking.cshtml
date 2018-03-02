@@ -7,17 +7,20 @@
     <h4 id="evenementName" style="margin-top:40px">@Model.Event.Name</h4><br />
     <p id="evenementAddress">@Model.Event.Address</p>
     <p id="evenementDuration">@Model.Event.Duration Heure(s)</p>
-    <p data-toggle="collapse" data-target="#collapse" >Voir plus...</p>
+    <p data-toggle="collapse" data-target="#collapse">Voir plus...</p>
     <div id="collapse" class="collapse">
-        <p id="evenementDescription" >@Model.Event.Description</p>
-        <img src="@Model.EventImage.Path" />
+        <p id="evenementDescription">@Model.Event.Description</p>
+        @if (Model.Event.Images.Count() != 0)
+        {
+            <img style="width:120px" src="@Model.Event.Images.FirstOrDefault().Path" />
+        }
     </div>
     <h3 id="parkingName" style="margin-top:40px">Parking : @Model.Parking.ParkingInfo.Name</h3><br />
-    <p id="parkingMaxPlaces" >Nb place Maximun : @Model.Parking.ParkingInfo.MaxPlaces</p>
-    <p id="parkingFreePlaces" >Nb place libre : @Model.Parking.ParkingInfo.FreePlaces</p>
-    <p id="parkingDitance" >Distance : @Model.Parking.DistanceFromStart m</p>
+    <p id="parkingMaxPlaces">Nb place Maximun : @Model.Parking.ParkingInfo.MaxPlaces</p>
+    <p id="parkingFreePlaces">Nb place libre : @Model.Parking.ParkingInfo.FreePlaces</p>
+    <p id="parkingDitance">Distance : @Model.Parking.DistanceFromStart m</p>
     <p id="tarifTotal">Tarif total : @Model.Parking.CalculatedParkingPrice  €</p>
- 
+
     <div class="col-sm-12" style="display:flex;margin-top:50px;display:none">
         <button class="btn btn-default" id="btnGoToParking" style="margin-left:auto;margin-right:auto;">Aller à cet endroit</button>
     </div>
