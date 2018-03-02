@@ -67,8 +67,8 @@ namespace BLL.Services
         {
             foreach (ParkingDTO p in parkings.ParkingList)
             {
-                p.DistanceFromEvent = Math.Round(DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]),1);
-                p.DistanceFromStart = Math.Round(DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]),1);
+                p.DistanceFromEvent = Math.Round(DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]));
+                p.DistanceFromStart = Math.Round(DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]));
             }
         }
 
@@ -137,7 +137,7 @@ namespace BLL.Services
             double calculatedParkingPrice = 0;
             if (!parkingPrice.Tarif01h.HasValue || parkingPrice.Tarif01h == null)
             {
-                return eventDurationTime.Hours * parkingPrice.Tarif;
+                calculatedParkingPrice = calculatedParkingPrice + eventDurationTime.Hours * parkingPrice.Tarif + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif;
             }
             else
             {

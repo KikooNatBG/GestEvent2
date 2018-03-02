@@ -8,7 +8,7 @@
         <img src="~/Content/Draw/Design/Logo.png" />
     </div>
     <div class="col-sm-4 col-sm-push-2">
-        <h2 id="test" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Parkings les plus proche de chez vous</h2>
+        <h2 id="test" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Bienvenue sur GestEvent !</h2>
     </div>
 </div>
 
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="col-sm-4" style="display:flex">
-        <div class="col-sm-11" style="height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
+        <div class="col-sm-11" style="min-height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
             @if (Model.LstParkings.Count != 0 || Model.Parking.ParkingInfo != null)
             {
                 <div class="row col-sm-12 btn-group" style="height:45px;margin: 0;">
@@ -86,9 +86,9 @@
                 $("#parkingName").html(result.Parking.ParkingInfo.Name);
                 $("#parkingMaxPlaces").html("Nb place Maximun : " + result.Parking.ParkingInfo.MaxPlaces);
                 $("#parkingFreePlaces").html("Nb place libre : " + result.Parking.ParkingInfo.FreePlaces);
-                $("#parkingDitance").html("Distance : " + result.Parking.DistanceFromStart + " Km/h");
+                $("#parkingDitance").html("Distance : " + result.Parking.DistanceFromStart + " m");
                 $("#tarifTotal").html("Tarif total :" + result.Parking.CalculatedParkingPrice + " €");
-                $("#tarifHeure").html("Tarif heure : " + result.Parking.Parking.Prices[0].Tarif + " €/Heure");
+                $("#evenementDescription").html( result.Event.Description );
                 latlongParkingDest = result.LatlongParkingDest;
                 $('#btnGoToParking').click();
             },
