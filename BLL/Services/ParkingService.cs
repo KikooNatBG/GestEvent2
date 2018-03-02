@@ -67,8 +67,8 @@ namespace BLL.Services
         {
             foreach (ParkingDTO p in parkings.ParkingList)
             {
-                p.DistanceFromEvent = Math.Round(DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]),1);
-                p.DistanceFromStart = Math.Round(DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]),1);
+                p.DistanceFromEvent = Math.Round(DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]));
+                p.DistanceFromStart = Math.Round(DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]));
             }
         }
 

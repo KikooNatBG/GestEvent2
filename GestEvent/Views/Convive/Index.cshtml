@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="col-sm-4" style="display:flex">
-        <div class="col-sm-11" style="height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
+        <div class="col-sm-11" style="min-height:450px;background-color:white;margin-right: auto;box-shadow: 0px 0px 15px 1px rgba(128, 128, 128, 0.5);border-radius:2px">
             @if (Model.LstParkings.Count != 0 || Model.Parking.ParkingInfo != null)
             {
                 <div class="row col-sm-12 btn-group" style="height:45px;margin: 0;">
@@ -88,6 +88,7 @@
                 $("#parkingFreePlaces").html("Nb place libre : " + result.Parking.ParkingInfo.FreePlaces);
                 $("#parkingDitance").html("Distance : " + result.Parking.DistanceFromStart + " m");
                 $("#tarifTotal").html("Tarif total :" + result.Parking.CalculatedParkingPrice + " €");
+                $("#evenementDescription").html( result.Event.Description );
                 latlongParkingDest = result.LatlongParkingDest;
                 $('#btnGoToParking').click();
             },
