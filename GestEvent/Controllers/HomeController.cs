@@ -10,7 +10,7 @@ namespace GestEvent.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View("~/Views/Convive/Index.cshtml");
         }
 
         public ActionResult About()
