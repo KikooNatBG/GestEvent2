@@ -50,7 +50,6 @@ namespace BLL.Services
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromEvent).Take(3).ToList();
             parkings.ParkingList = parkings.ParkingList.OrderBy(p => p.ParkingInfo.DistanceFromStart).ToList();
 
-            
 
             return parkings.ParkingList;
         }
@@ -60,14 +59,7 @@ namespace BLL.Services
         {
             foreach (ParkingDTO p in parkings.ParkingList){ if (p.ParkingInfo.FreePlaces < 10) { parkings.ParkingList.Remove(p); } }
         }
-        public void RemoveParkingByParkingDisponibility(Event e)
-        {
-            foreach (ParkingDTO p in parkings.ParkingList) {
-                if (!p.Parking.IsAlwaysOpen) {
-                    parkings.ParkingList.Remove(p);
-                }
-            }
-        }
+        
 
 
         //TODO : Ajouter long lat adresse de depart
@@ -75,8 +67,8 @@ namespace BLL.Services
         {
             foreach (ParkingDTO p in parkings.ParkingList)
             {
-                p.DistanceFromEvent = DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
-                p.DistanceFromStart = DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]);
+                p.DistanceFromEvent = Math.Round(DistanceBetweenPoints(latitudeEvent, longitudeEvent, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]));
+                p.DistanceFromStart = Math.Round(DistanceBetweenPoints(latitudeStart, longitudeStart, p.ParkingInfo.Coordinates[0], p.ParkingInfo.Coordinates[1]));
             }
         }
 
@@ -142,55 +134,127 @@ namespace BLL.Services
 
         public double getParkingPrice(Price parkingPrice, TimeSpan eventDurationTime)
         {
+            double calculatedParkingPrice = 0;
             if (!parkingPrice.Tarif01h.HasValue || parkingPrice.Tarif01h == null)
             {
-                return eventDurationTime.Hours * parkingPrice.Tarif;
+                calculatedParkingPrice = calculatedParkingPrice + eventDurationTime.Hours * parkingPrice.Tarif + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif;
             }
             else
             {
                 if (eventDurationTime.Hours < 1)
                 {
                     if (parkingPrice.Tarif01h.HasValue) {
-                        return eventDurationTime.Hours * parkingPrice.Tarif01h.Value;
+                        calculatedParkingPrice = calculatedParkingPrice + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif01h.Value;
+                    }
+                    else
+                    {
+                        calculatedParkingPrice = calculatedParkingPrice + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif;
                     }
                 }
 
-                if (eventDurationTime.Hours > 1 && eventDurationTime.Hours < 2)
+                if (eventDurationTime.Hours >= 1 && eventDurationTime.Hours < 2)
                 {
-                    if (parkingPrice.Tarif01h.HasValue && parkingPrice.Tarif12h.HasValue)
+                    if (parkingPrice.Tarif01h.HasValue)
                     {
-                        return parkingPrice.Tarif01h.Value + (eventDurationTime.Hours - TimeSpan.FromHours(1).Hours) * parkingPrice.Tarif12h.Value;
+                        calculatedParkingPrice = calculatedParkingPrice +  parkingPrice.Tarif01h.Value;
+
+                        if(parkingPrice.Tarif12h.HasValue)
+                        {
+                            calculatedParkingPrice = calculatedParkingPrice + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif12h.Value;
+                        }
+                    }
+                    else
+                    {
+                        calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif;
+                    }
+ 
+                }
+
+                if (eventDurationTime.Hours > 2 && eventDurationTime.Hours <= 3)
+                {
+
+                    if (parkingPrice.Tarif01h.HasValue)
+                    {
+                        calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif01h.Value;
+
+                        if (parkingPrice.Tarif12h.HasValue)
+                        {
+                            calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif12h.Value;
+
+                            if (parkingPrice.Tarif23h.HasValue)
+                            {
+                                calculatedParkingPrice = calculatedParkingPrice + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif23h.Value;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        calculatedParkingPrice = calculatedParkingPrice + 2* parkingPrice.Tarif + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif;
+                    }
+
+                }
+
+                if (eventDurationTime.Hours > 3 && eventDurationTime.Hours <= 4)
+                {
+                    if (parkingPrice.Tarif01h.HasValue)
+                    {
+                        calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif01h.Value;
+
+                        if (parkingPrice.Tarif12h.HasValue)
+                        {
+                            calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif12h.Value;
+
+                            if (parkingPrice.Tarif23h.HasValue)
+                            {
+                                calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif23h.Value;
+
+                                if(parkingPrice.Tarif34h.HasValue)
+                                {
+                                    calculatedParkingPrice = calculatedParkingPrice + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif34h.Value;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        calculatedParkingPrice = calculatedParkingPrice + 3 * parkingPrice.Tarif + (eventDurationTime.Minutes / 60) * parkingPrice.Tarif;
                     }
                 }
 
-                if (eventDurationTime.Hours > 2 && eventDurationTime.Hours < 3)
+                if (eventDurationTime.Hours > 4)
                 {
+                    if (parkingPrice.Tarif01h.HasValue)
+                    {
+                        calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif01h.Value;
 
-                    if (parkingPrice.Tarif01h.HasValue && parkingPrice.Tarif12h.HasValue)
-                    {
-                        return parkingPrice.Tarif01h.Value + parkingPrice.Tarif12h.Value + (eventDurationTime.Hours - TimeSpan.FromHours(2).Hours) * parkingPrice.Tarif23h.Value;
-                    }
-          
-                }
+                        if (parkingPrice.Tarif12h.HasValue)
+                        {
+                            calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif12h.Value;
 
-                if (eventDurationTime.Hours > 3 && eventDurationTime.Hours < 4)
-                {
-                    if (parkingPrice.Tarif01h.HasValue && parkingPrice.Tarif12h.HasValue)
-                    {
-                        return parkingPrice.Tarif01h.Value + parkingPrice.Tarif12h.Value + parkingPrice.Tarif23h.Value + (eventDurationTime.Hours - TimeSpan.FromHours(3).Hours) * parkingPrice.Tarif34h.Value;
+                            if (parkingPrice.Tarif23h.HasValue)
+                            {
+                                calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif23h.Value;
+
+                                if (parkingPrice.Tarif34h.HasValue)
+                                {
+                                    calculatedParkingPrice = calculatedParkingPrice + parkingPrice.Tarif34h.Value;
+
+                                    if (parkingPrice.Tarif4Plus.HasValue)
+                                    {
+                                        calculatedParkingPrice = calculatedParkingPrice + (eventDurationTime.Hours - 4) * parkingPrice.Tarif4Plus.Value;
+                                    }
+                                }
+                            }
+                        }
                     }
-                }
-                
-                if(eventDurationTime.Hours > 4)
-                {
-                    if (parkingPrice.Tarif01h.HasValue && parkingPrice.Tarif12h.HasValue)
+                    else
                     {
-                        return parkingPrice.Tarif01h.Value + parkingPrice.Tarif12h.Value + parkingPrice.Tarif23h.Value + parkingPrice.Tarif34h.Value + (eventDurationTime.Hours - TimeSpan.FromHours(4).Hours) * parkingPrice.Tarif4Plus.Value;
+                        calculatedParkingPrice = calculatedParkingPrice + eventDurationTime.Hours * parkingPrice.Tarif;
                     }
                 }
             }
     
-            return 0;
+            return Math.Round(calculatedParkingPrice,2);
         }
 
         public double DistanceBetweenPoints(double latitudeA, double longitudeA, double latitudeB, double longitudeB)
