@@ -12,11 +12,11 @@
 
 <p id="parkingMaxPlaces" style="text-align:center">Nb place Maximun : @Model.Parking.ParkingInfo.MaxPlaces</p>
 <p id="parkingFreePlaces" style="text-align:center">Nb place libre : @Model.Parking.ParkingInfo.FreePlaces</p>
-<p id="parkingDitance" style="text-align:center">Distance : @Model.Parking.ParkingInfo.DistanceFromStart Km/h</p><br /><br />
+<p id="parkingDitance" style="text-align:center">Distance : @Model.Parking.DistanceFromStart Km/h</p><br /><br />
 
 <div style="text-align:center;">
-    <p class="col-sm-4 col-sm-push-2" style="display:inline-block">Tarif total : 200</p>
-    <p class="col-sm-4 col-sm-push-2" style="display:inline-block">Tarif/Heure : 300</p>
+    <p id="tarifTotal" class="col-sm-4 col-sm-push-2" style="display:inline-block">Tarif total : @Model.Parking.CalculatedParkingPrice  €</p>
+    <p id="tarifHeure" class="col-sm-4 col-sm-push-2" style="display:inline-block">Tarif/Heure : 300</p>
 </div><br />
 
 <div class="col-sm-12" style="display:flex;margin-top:50px;display:none">
