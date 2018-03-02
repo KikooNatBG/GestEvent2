@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace GestEvent.Controllers
 {
+    [Authorize(Roles = Role.REGISTERED)]
     public class ConviveController : Controller
     {
         static List<ParkingDTO> _lstParking = new List<ParkingDTO>();
