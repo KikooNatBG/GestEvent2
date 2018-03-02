@@ -28,7 +28,7 @@ namespace GestEvent.Controllers
 
         public ActionResult Admin()
         {
-            return View("~/Views/ViewTest.cshtml");
+            return View("~/Views/Admin/HomeAdmin.cshtml");
         }
 
 

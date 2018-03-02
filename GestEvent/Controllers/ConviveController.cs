@@ -6,8 +6,6 @@ using DAL.Repository;
 using GestEvent.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace GestEvent.Controllers
@@ -21,12 +19,14 @@ namespace GestEvent.Controllers
         private Context _context;
         private EventService _eventService;
         private ParkingService _parkingService;
+        private ImageService _imageService;
 
         public ConviveController()
         {
             _context = new Context();
             _eventService = new EventService(new EventRepository(_context), new ImageRepository(_context));
             _parkingService = new ParkingService(new ParkingRepository(_context));
+            _imageService = new ImageService(new ImageRepository(_context));
         }
 
         // GET: Convive
@@ -52,7 +52,7 @@ namespace GestEvent.Controllers
             Event evenement = _eventService.Get(conviveViewModel.Event.Id);
             List<Double> LatLongEvent = _eventService.GetGeolocalisation(evenement.Address);
             List<Double> latLongAdressUser = _eventService.GetGeolocalisation(conviveViewModel.AddresseUser);
-
+            
             List<ParkingDTO> lstParking = _parkingService.GetNearerParkings(LatLongEvent[0], LatLongEvent[1], latLongAdressUser[0], latLongAdressUser[1],evenement);
             
             _lstParking = lstParking;

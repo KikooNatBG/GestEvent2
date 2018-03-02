@@ -26,6 +26,8 @@ namespace GestEvent.Models
 
         public string Rubric { get; set; }
 
+        public EventImage EventImage { get; set; }
+
         public ConviveViewModel()
         {
             LstParkings = new List<ParkingDTO>();
