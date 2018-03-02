@@ -10,5 +10,6 @@ namespace BO
     {
         public const string GUEST = "Guest";
         public const string ADMINISTRATEUR = "Administrateur";
+        public const string REGISTERED = "Guest, Administrateur";
     }
 }
