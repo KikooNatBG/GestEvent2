@@ -40,11 +40,6 @@
                         <p style="margin:auto">C</p>
                     </a>
                 </div>
-                @section Scripts{
-                    <script>
-
-                    </script>
-                }
             }
 
             @Html.Partial(Model.ViewRubricUrl, Model)
@@ -80,15 +75,11 @@
             dataType: 'JSON',
             data: { rubric: pRubric, idEvent: idEvent },
             success: function (result) {
-                $("#evenementName").html(result.Event.Name);
-                $("#evenementAddress").html(result.Event.Address);
-                $("#evenementDuration").html(result.Event.Duration + "Heure(s)");
                 $("#parkingName").html(result.Parking.ParkingInfo.Name);
                 $("#parkingMaxPlaces").html("Nb place Maximun : " + result.Parking.ParkingInfo.MaxPlaces);
                 $("#parkingFreePlaces").html("Nb place libre : " + result.Parking.ParkingInfo.FreePlaces);
                 $("#parkingDitance").html("Distance : " + result.Parking.DistanceFromStart + " m");
                 $("#tarifTotal").html("Tarif total :" + result.Parking.CalculatedParkingPrice + " €");
-                $("#evenementDescription").html( result.Event.Description );
                 latlongParkingDest = result.LatlongParkingDest;
                 $('#btnGoToParking').click();
             },
