@@ -10,6 +10,7 @@
     <p data-toggle="collapse" data-target="#collapse" >Voir plus...</p>
     <div id="collapse" class="collapse">
         <p id="evenementDescription" >@Model.Event.Description</p>
+        <img src="@Model.EventImage.Path" />
     </div>
     <h3 id="parkingName" style="margin-top:40px">Parking : @Model.Parking.ParkingInfo.Name</h3><br />
     <p id="parkingMaxPlaces" >Nb place Maximun : @Model.Parking.ParkingInfo.MaxPlaces</p>
