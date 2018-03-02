@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201802281318294_twelve.Designer.cs">
       <DependentUpon>201802281318294_twelve.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803021000219_thirteen.cs" />
+    <Compile Include="Migrations\201803021000219_thirteen.Designer.cs">
+      <DependentUpon>201803021000219_thirteen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EventRepository.cs" />
@@ -152,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802281318294_twelve.resx">
       <DependentUpon>201802281318294_twelve.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803021000219_thirteen.resx">
+      <DependentUpon>201803021000219_thirteen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
