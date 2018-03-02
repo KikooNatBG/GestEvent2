@@ -16,7 +16,7 @@
 
 <div style="text-align:center;">
     <p id="tarifTotal" class="col-sm-4 col-sm-push-2" style="display:inline-block">Tarif total : @Model.Parking.CalculatedParkingPrice  €</p>
-    <p id="tarifHeure" class="col-sm-4 col-sm-push-2" style="display:inline-block">Tarif/Heure : 300</p>
+    <p id="tarifHeure" class="col-sm-4 col-sm-push-2" style="display:inline-block">Tarif/Heure : @Model.Parking.Parking.Prices[0].Tarif</p>
 </div><br />
 
 <div class="col-sm-12" style="display:flex;margin-top:50px;display:none">
