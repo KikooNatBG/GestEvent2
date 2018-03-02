@@ -86,7 +86,8 @@
                 $("#parkingName").html(result.Parking.ParkingInfo.Name);
                 $("#parkingMaxPlaces").html("Nb place Maximun : " + result.Parking.ParkingInfo.MaxPlaces);
                 $("#parkingFreePlaces").html("Nb place libre : " + result.Parking.ParkingInfo.FreePlaces);
-                $("#parkingDitance").html("Distance : " + result.Parking.ParkingInfo.DistanceFromStart + " Km/h");
+                $("#parkingDitance").html("Distance : " + result.Parking.DistanceFromStart + " Km/h");
+                $("#tarifTotal").html("Tarif total :" + result.Parking.CalculatedParkingPrice + " €");
                 latlongParkingDest = result.LatlongParkingDest;
                 $('#btnGoToParking').click();
             },
